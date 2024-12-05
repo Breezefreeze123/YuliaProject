@@ -3,4 +3,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def signin(request):
-    return render(request, 'signin/signin.html')
+    data = {
+        'title': 'Sign in',
+    }
+    return render(request, 'signin/signin.html', context=data)

@@ -1,7 +1,29 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
 
-{% block content %}
+<head>
+    <meta charset="utf-8">
+    <title>Yulia's Coffeeshop</title>
+</head>
 
-<h1>Homepage of Yulia's Coffeeshop</h1>
+<body bgcolor = "SaddleBrown" >
 
-{% endblock %}
+    <font color = "white">
+        
+        
+        <ul>
+            
+            {% for m in main_menu %}
+            <p><a href="{% url m.url_name %}">{{m.title}}</a></p>        
+            {% endfor %}
+        </ul>
+        
+               
+        {% block content %}
+
+        <h1>{{ title }}</h1>
+
+        {% endblock %}
+
+    </font>
+
+</body>

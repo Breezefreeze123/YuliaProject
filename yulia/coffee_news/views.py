@@ -3,4 +3,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def news(request):
-    return render(request, 'news/news.html')
+    data = {
+        'title': 'Coffee News',
+    }
+    return render(request, 'news/news.html', context=data)

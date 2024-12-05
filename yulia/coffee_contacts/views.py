@@ -3,5 +3,8 @@ from django.http import HttpResponse
 
 # Create your views here.
 def contacts(request):
-    return render(request, 'contacts/contacts.html')
+    data = {
+        'title': 'Coffeeshop contacts',
+    }
+    return render(request, 'contacts/contacts.html', context=data)
 
