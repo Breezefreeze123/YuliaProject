@@ -38,10 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'yulia_app_1.apps.YuliaTestConfig',
-    'coffee_menu.apps.CoffeeMenuConfig',
-    'coffee_news.apps.CoffeeNewsConfig',
-    'coffee_contacts.apps.CoffeeContactsConfig',
-    'coffee_signin.apps.CoffeeSigninConfig',
+
 ]
 
 MIDDLEWARE = [
