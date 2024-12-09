@@ -22,7 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-bf(0_5&inwz(ifwa_#q^f-(d*p$6vu_-mb-g6gm29u-tzmo0*&'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on iexit
+# n production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'yulia_app_1.apps.YuliaTestConfig',
+    'django_extensions',
 
 ]
 
