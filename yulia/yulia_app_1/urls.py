@@ -7,6 +7,6 @@ urlpatterns = [
     path('news/', views.news, name = 'news'),
     path('contacts/', views.contacts, name = 'contacts'),
     path('signin/', views.signin, name = 'signin'),
-    path('<slug:menu_section>/', views.show_menu, name = 'show_menu'),
+    path('menu/<slug:menu_slug>/', views.show_menu, name = 'show_menu'),
     
 ]

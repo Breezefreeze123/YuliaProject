@@ -5,10 +5,10 @@
 <h1>{{ title }}</h1>
 
 <ul>
-    {% for i in menu_sections %}
+    {% for i in post %}
     {% if i.is_published %}
     <li>
-        <h2><a href="{% url 'show_menu' i.title %}">{{ i.title }}</a></h2>
+        <h2><a href="{{ i.get_absolute_url }}">{{ i.title }}</a></h2>
         <p>{{ i.content }}</p>
         
     </li>
