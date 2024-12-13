@@ -8,7 +8,7 @@ html, body {
 }
 
 a {
-	color: #0059b2;
+	color: #fdc073;
 	text-decoration: none;
 }
 a:hover {
@@ -176,7 +176,7 @@ div.button {
 	margin: 30px 0 0 0;
 	color: #999;
 }
-.left-chapters ul li.selected {color: #0059b2; }
+.left-chapters ul li.selected {color: #fdc073; }
 .left-chapters ul li a {
 	color: #444;
 	text-decoration: none;
@@ -237,7 +237,7 @@ ul.breadcrumbs li {
 	display: inline-block;
 }
 ul.breadcrumbs li a {
-	color: #0059b2;
+	color: #fdc073;
 	text-decoration: none;
 }
 ul.breadcrumbs li a:hover { color: #CC0000; }
@@ -259,7 +259,7 @@ ul.control li {	float: left; padding: 0 0 0 10px;}
 ul.control li.first:before {content: "\2190"; padding: 0 10px 0 0;}
 ul.control li.last {float: right; padding: 0 40px 0 0;}
 ul.control li.last:after {content: "\2192"; padding: 0 0 0 10px;}
-ul.control li a { color: #0059b2; text-decoration: none; }
+ul.control li a { color: #fdc073; text-decoration: none; }
 ul.control li a:hover { color: #CC0000; }
 
 ul.content-table {
@@ -343,7 +343,7 @@ ul.lang-list li a:hover {color: #fdc073;}
 	padding: 0 0 0 10px;
 }
 .list-topic ol li a {
-	color: #0059b2;
+	color: #fdc073;
 	text-decoration: none;
 }
 .list-topic ol li a:hover {color: #CC0000;}

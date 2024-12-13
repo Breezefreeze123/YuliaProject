@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 
-from .models import Coffee
+from .models import Coffee, Category
 
 main_menu = [
     {'title': 'Main', 'url_name': 'home'},
@@ -27,23 +27,42 @@ def home(request):
 
 def menu(request):
 
-    post = Coffee.objects.all()
-
+    all_categories = Category.objects.all()  
+  
     data = {
         'title': 'Coffee Menu',
-    #    'menu_sections': data_coffee,
-        'post': post,
+        'all_categories': all_categories,
         'main_menu': main_menu,
     }
     return render(request, 'menu/menu.html', context=data)
 
+def show_category(request, cat_slug):
+
+    all_categories = Category.objects.all()
+
+    category = get_object_or_404(Category, slug=cat_slug)
+    post = Coffee.objects.filter(cat_id=category.pk)
+
+    data = {
+        'title': f'Раздел: {category.title}',
+        'all_categories': all_categories,
+        'main_menu': main_menu,
+        'category': category,
+        'post': post,
+        
+    }
+    return render(request, 'menu/menu.html', context=data)
+
 def show_menu(request, menu_slug):
+
+    all_categories = Category.objects.all()
 
     post = get_object_or_404(Coffee, slug=menu_slug)
 
     data = {
         'post': post,
         'main_menu': main_menu,
+        'all_categories': all_categories,
     }
     return render(request, 'menu/menu_sections.html', context=data)
 

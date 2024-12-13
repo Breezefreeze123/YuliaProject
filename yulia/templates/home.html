@@ -12,20 +12,35 @@
 
     <font color = "white">
         
-        
-        <ul>
-            
+<!-- Главное меню -->        
+    <table>
             {% for m in main_menu %}
-            <p><a href="{% url m.url_name %}">{{m.title}}</a></p>        
+            <td>
+                <h1><a href="{% url m.url_name %}">{{m.title}}</a></h1>
+            </td>        
             {% endfor %}
-        </ul>
-        
-               
-        {% block content %}
+       
+    </table>
+<!-- Конец Главного меню -->        
+      
 
-        <h1>{{ title }}</h1>
 
-        {% endblock %}
+<!-- Категории меню -->        
+        <table>                    
+            {% for cat in all_categories %}
+            <tr>
+            <h2><a href="{{ cat.get_absolute_url }}">{{cat.title}}</a></h2>        
+            <p>{{cat.slug}}</p>
+            </tr>       
+            {% endfor %}           
+        </table> 
+<!-- Конец Категорий меню -->        
+
+{% block content %}
+
+<h1>{{ title }}</h1>
+
+{% endblock %}
 
     </font>
 
