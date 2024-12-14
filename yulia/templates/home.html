@@ -12,7 +12,7 @@
 
     <font color = "white">
         
-<!-- Главное меню -->        
+<!-- Главное меню - работает со всех html -->        
     <table>
             {% for m in main_menu %}
             <td>
@@ -22,16 +22,13 @@
        
     </table>
 <!-- Конец Главного меню -->        
-      
 
-
-<!-- Категории меню -->        
+<!-- Категории меню - работает только с menu.html - views menu и show_category -->        
         <table>                    
             {% for cat in all_categories %}
-            <tr>
-            <h2><a href="{{ cat.get_absolute_url }}">{{cat.title}}</a></h2>        
-            <p>{{cat.slug}}</p>
-            </tr>       
+            <td>
+                <h2><a href="{{ cat.get_absolute_url }}">{{cat.title}}</a></h2>        
+            </td>       
             {% endfor %}           
         </table> 
 <!-- Конец Категорий меню -->        
