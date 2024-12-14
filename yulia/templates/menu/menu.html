@@ -4,16 +4,48 @@
 
 <h1>{{ title }}</h1>
 
+<!-- Вывод перечня продуктов по категориям -->    
 <ul>
     {% for i in post %}
     {% if i.is_published %}
     <li>
         <h2><a href="{{ i.get_absolute_url }}">{{ i.title }}</a></h2>
         <p>{{ i.content }}</p>
-        
+
+        <table>
+            <td>
+                <tr>Тэг: </tr>
+                {% for tag in i.tag.all %}
+                <tr><a href="{{ tag.get_absolute_url }}">{{ tag }} </a></tr>
+                {% endfor%}
+            </td>
+        </table>
+
     </li>
     {% endif %}
     {% endfor %}
 </ul>
+<!-- Конец Вывода перечня продуктов по категориям -->    
+
+<!-- Вывод перечня продуктов по тэгам -->    
+<ul>
+    {% for tag in tag_selection %}
+    <li>
+        <h2><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></h2>
+        <p>{{ tag.content }}</p>
+
+        <table>
+            <td>
+                <tr>Тэг: </tr>
+                {% for tag in tag.tag.all %}
+                <tr><a href="{{ tag.get_absolute_url }}">{{ tag }} </a></tr>
+                {% endfor%}
+            </td>
+        </table>
+
+    </li>
+    {% endfor %}
+</ul>
+<!-- Конец Вывода перечня продуктов по тэгам -->    
 
 {% endblock %}

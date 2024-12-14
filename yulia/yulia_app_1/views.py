@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 
-from .models import Coffee, Category
+from .models import Coffee, Category, TagTable
 
 main_menu = [
     {'title': 'Main', 'url_name': 'home'},
@@ -9,13 +9,6 @@ main_menu = [
     {'title': 'News', 'url_name': 'news'},
     {'title': 'Contacts', 'url_name': 'contacts'},
     {'title': 'Sign in', 'url_name': 'signin'},
-]
-
-#Заменено на базу данных:
-data_coffee = [
-    {'id': 1, 'title': 'Food', 'content': 'Club sandwich, Caesar salad, Sushi', 'is_published': True},
-    {'id': 2, 'title': 'Drinks', 'content': 'Cappuchino, Espresso, Earl gray tea', 'is_published': True},
-    {'id': 3, 'title': 'Deserts', 'content': 'Tiramisu, Mango cheesecake, Brauni', 'is_published': True},
 ]
 
 def home(request):
@@ -27,42 +20,70 @@ def home(request):
 
 def menu(request):
 
-    all_categories = Category.objects.all()  
+    all_categories = Category.objects.all()
+    all_tags = TagTable.objects.all()  
   
     data = {
         'title': 'Coffee Menu',
+        'title_tags': 'Тэги: ',
         'all_categories': all_categories,
         'main_menu': main_menu,
+        'all_tags': all_tags,
     }
     return render(request, 'menu/menu.html', context=data)
 
 def show_category(request, cat_slug):
 
     all_categories = Category.objects.all()
+    all_tags = TagTable.objects.all()  
 
     category = get_object_or_404(Category, slug=cat_slug)
     post = Coffee.objects.filter(cat_id=category.pk)
 
     data = {
         'title': f'Раздел: {category.title}',
+        'title_tags': 'Тэги: ',
         'all_categories': all_categories,
         'main_menu': main_menu,
         'category': category,
         'post': post,
+        'all_tags': all_tags,
         
+    }
+    return render(request, 'menu/menu.html', context=data)
+
+def show_tag(request, tag_slug):
+
+    all_categories = Category.objects.all()
+    all_tags = TagTable.objects.all()
+
+    tag = get_object_or_404(TagTable, slug=tag_slug)
+    tag_selection = tag.tagtable.all()
+
+    data = {
+        'title': f'Тэг: {tag.tag}',
+        'title_tags': 'Тэги: ',
+        'main_menu': main_menu,
+        'all_categories': all_categories,
+        'all_tags': all_tags,
+        'tag': tag,
+        'tag_selection': tag_selection,
     }
     return render(request, 'menu/menu.html', context=data)
 
 def show_menu(request, menu_slug):
 
     all_categories = Category.objects.all()
+    all_tags = TagTable.objects.all() 
 
     post = get_object_or_404(Coffee, slug=menu_slug)
 
     data = {
+        'title_tags': 'Тэги: ',
         'post': post,
         'main_menu': main_menu,
         'all_categories': all_categories,
+        'all_tags': all_tags,
     }
     return render(request, 'menu/menu_sections.html', context=data)
 

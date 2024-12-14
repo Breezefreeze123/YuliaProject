@@ -12,7 +12,7 @@
 
     <font color = "white">
         
-<!-- Главное меню - работает со всех html -->        
+<!-- Главное меню - расширяется со всех html -->        
     <table>
             {% for m in main_menu %}
             <td>
@@ -23,7 +23,7 @@
     </table>
 <!-- Конец Главного меню -->        
 
-<!-- Категории меню - работает только с menu.html - views menu и show_category -->        
+<!-- Категории меню - расширяется только с menu.html (виды menu, show_category) -->        
         <table>                    
             {% for cat in all_categories %}
             <td>
@@ -32,6 +32,17 @@
             {% endfor %}           
         </table> 
 <!-- Конец Категорий меню -->        
+
+<!-- Список тэгов - расширяется только с menu.html (вид show_tag) -->        
+    <table>  
+        <td>                  
+            <tr>{{title_tags}}</tr>
+            {% for tag in all_tags %}
+            <tr><a href="{{ tag.get_absolute_url }}">{{tag.tag}} </a></tr>        
+            {% endfor %}
+        </td>       
+    </table> 
+<!-- Конец Списка тэгов -->   
 
 {% block content %}
 

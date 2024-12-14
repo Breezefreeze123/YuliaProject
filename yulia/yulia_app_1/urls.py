@@ -9,4 +9,5 @@ urlpatterns = [
     path('signin/', views.signin, name = 'signin'),
     path('menu/<slug:menu_slug>/', views.show_menu, name = 'show_menu'),
     path('menu/category/<slug:cat_slug>/', views.show_category, name = 'show_category'),
+    path('menu/tag/<slug:tag_slug>/', views.show_tag, name = 'show_tag'),
 ]
