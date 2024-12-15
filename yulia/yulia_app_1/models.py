@@ -16,6 +16,7 @@ class Coffee(models.Model):
     is_published = models.BooleanField(choices=Status, default=Status.PUBLISHED)
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='category')
     tag = models.ManyToManyField('TagTable', blank=True, related_name='tagtable')
+    gost = models.OneToOneField('Gost', on_delete=models.SET_NULL, null=True, blank=True, related_name='gost')
 
     def __str__(self):
         return self.title
@@ -42,3 +43,11 @@ class TagTable(models.Model):
     
     def get_absolute_url(self):
         return reverse('show_tag', kwargs={'tag_slug': self.slug})
+    
+class Gost(models.Model):
+    gost_product = models.CharField(max_length=50)
+    gost_number = models.IntegerField()
+
+    def __str__(self):
+        return self.gost_product
+    
