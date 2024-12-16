@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from django.db.models import Count, Sum, Avg, Max, Min
 
 from .models import Coffee, Category, TagTable
 
@@ -20,8 +21,8 @@ def home(request):
 
 def menu(request):
 
-    all_categories = Category.objects.all()
-    all_tags = TagTable.objects.all()  
+    all_categories = Category.objects.annotate(total=Count('category')).filter(total__gt=0) #Проверка, что количество категорий в Category, связанных со статьями в Coffee, больше нуля
+    all_tags = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0) #Проверка, что количество тэгов в TagTable, связанных со статьями в Coffee, больше нуля
   
     data = {
         'title': 'Coffee Menu',
@@ -34,8 +35,8 @@ def menu(request):
 
 def show_category(request, cat_slug):
 
-    all_categories = Category.objects.all()
-    all_tags = TagTable.objects.all()  
+    all_categories = Category.objects.annotate(total=Count('category')).filter(total__gt=0) #Проверка, что количество категорий в Category, связанных со статьями в Coffee, больше нуля
+    all_tags = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0) #Проверка, что количество тэгов в TagTable, связанных со статьями в Coffee, больше нуля
 
     category = get_object_or_404(Category, slug=cat_slug)
     post = Coffee.objects.filter(cat_id=category.pk)
@@ -54,8 +55,8 @@ def show_category(request, cat_slug):
 
 def show_tag(request, tag_slug):
 
-    all_categories = Category.objects.all()
-    all_tags = TagTable.objects.all()
+    all_categories = Category.objects.annotate(total=Count('category')).filter(total__gt=0) #Проверка, что количество категорий в Category, связанных со статьями в Coffee, больше нуля
+    all_tags = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0) #Проверка, что количество тэгов в TagTable, связанных со статьями в Coffee, больше нуля
 
     tag = get_object_or_404(TagTable, slug=tag_slug)
     tag_selection = tag.tagtable.all()
@@ -73,8 +74,8 @@ def show_tag(request, tag_slug):
 
 def show_menu(request, menu_slug):
 
-    all_categories = Category.objects.all()
-    all_tags = TagTable.objects.all() 
+    all_categories = Category.objects.annotate(total=Count('category')).filter(total__gt=0) #Проверка, что количество категорий в Category, связанных со статьями в Coffee, больше нуля
+    all_tags = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0) #Проверка, что количество тэгов в TagTable, связанных со статьями в Coffee, больше нуля
 
     post = get_object_or_404(Coffee, slug=menu_slug)
 
