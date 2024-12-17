@@ -13,10 +13,14 @@ class Coffee(models.Model):
     content = models.TextField()
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
-    is_published = models.BooleanField(choices=Status, default=Status.PUBLISHED)
+    is_published = models.BooleanField(choices=Status, default=Status.DRAFT)
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='category')
     tag = models.ManyToManyField('TagTable', blank=True, related_name='tagtable')
     gost = models.OneToOneField('Gost', on_delete=models.SET_NULL, null=True, blank=True, related_name='gost')
+
+    class Meta:
+        verbose_name='Продуктовые позиции для кофейни'
+        verbose_name_plural='Продуктовые позиции для кофейни'
 
     def __str__(self):
         return self.title
@@ -28,6 +32,10 @@ class Category(models.Model):
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
 
+    class Meta:
+        verbose_name='Категории меню'
+        verbose_name_plural='Категории меню'
+
     def __str__(self):
         return self.title
         
@@ -37,6 +45,10 @@ class Category(models.Model):
 class TagTable(models.Model):
     tag = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
+
+    class Meta:
+        verbose_name='Тэги'
+        verbose_name_plural='Тэги'
 
     def __str__(self):
         return self.tag
