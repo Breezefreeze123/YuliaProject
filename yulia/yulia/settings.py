@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-bf(0_5&inwz(ifwa_#q^f-(d*p$6vu_-mb-g6gm29u-tzmo0*&
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
-
+INTERNAL_IPS = ["127.0.0.1"]
 
 # Application definition
 
@@ -40,10 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'yulia_app_1.apps.YuliaTestConfig',
     'django_extensions',
+    'debug_toolbar',
 
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'yulia.urls'
