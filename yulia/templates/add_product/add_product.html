@@ -1,0 +1,36 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<h1>{{ title }}</h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+    
+    <div class="form-error">{{form.non_field_errors}}</div>
+
+    <!-- Вариант прописывания форм №1 ручной
+    <label for="auth_name">User name:</label><br>
+    <input type="text" id="auth_name" name="auth_name"><br>
+    <label for="psw">Password:</label><br>
+    <input type="password" id="psw" name="psw"><br><br>
+    <label for="ptitle">Product title:</label><br>
+    <input type="text" id="ptitle" name="ptitle"><br><br>
+    -->
+
+    <!-- Вариант прописывания форм №2 простой через форму. Здесь нельзя настроить кастомное оформление каждой строки
+    {{ form.as_p }}
+    -->
+    
+    <!-- Вариант прописывания форм №3 циклом через форму. Здесь можно настроить кастомное оформление каждой строки -->
+    {% for f in form %}
+    <p><label class="form-label" for="{{f.id_for_label}}">{{f.label}}</label>{{f}}</p>
+    <div class="form-error">{{f.errors}}</div>
+    {% endfor %}
+
+    <input type="submit" value="Submit">
+
+
+  </form> 
+
+{% endblock %}
