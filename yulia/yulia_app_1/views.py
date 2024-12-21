@@ -3,7 +3,10 @@ from django.http import HttpResponse
 from django.db.models import Count, Sum, Avg, Max, Min
 
 from .models import Coffee, Category, TagTable, Gost
-from .forms import AddProductForm
+from .forms import AddProductForm, UploadFileForm
+import uuid
+import datetime
+import time
 
 main_menu = [
     {'title': 'Main', 'url_name': 'home'},
@@ -90,10 +93,37 @@ def show_menu(request, menu_slug):
     }
     return render(request, 'menu/menu_sections.html', context=data)
 
+def handle_uploaded_file(f):
+    #new_rename = str(uuid.uuid4()) + f.name
+    
+    date_time = datetime.datetime.now()
+    date_time_format = f'{str(date_time.strftime("%d"))}_{str(date_time.strftime("%b"))}_{str(date_time.strftime("%H"))}_{str(date_time.strftime("%M"))}_{str(date_time.strftime("%S"))}'
+    new_rename = f'{date_time_format}_{f.name}'
+
+    
+    with open(f"uploads/{new_rename}", "wb+") as destination:
+        
+        for chunk in f.chunks():
+            destination.write(chunk)
+
 def news(request):
+
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            try:
+                handle_uploaded_file(form.cleaned_data['file'])
+            except Exception as e:
+                form.add_error(None, "Ошибка загрузки файла")
+                form.add_error(None, e)
+
+    else:
+        form = UploadFileForm()    
+
     data = {
         'title': 'Coffee News',
         'main_menu': main_menu,
+        'form': form,
     }
     return render(request, 'news/news.html', context=data)
 

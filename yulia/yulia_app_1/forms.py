@@ -22,5 +22,6 @@ class AddProductForm(forms.ModelForm):
             'tag': forms.CheckboxSelectMultiple,
         }
 
-
+class UploadFileForm(forms.Form):
+    file = forms.FileField()
 
