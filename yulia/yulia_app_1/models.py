@@ -17,6 +17,7 @@ class Coffee(models.Model):
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='category')
     tag = models.ManyToManyField('TagTable', blank=True, related_name='tagtable')
     gost = models.OneToOneField('Gost', on_delete=models.SET_NULL, null=True, blank=True, related_name='gost')
+    photo = models.ImageField(upload_to="photos/%Y/%m/%d/", blank=True, null=True)
 
     class Meta:
         verbose_name='Продуктовые позиции для кофейни'
@@ -63,3 +64,8 @@ class Gost(models.Model):
     def __str__(self):
         return self.gost_product
     
+class UploadFiles(models.Model):
+    upload = models.FileField(upload_to="uploads_model/")
+    
+    def __str__(self):
+        return self.upload    

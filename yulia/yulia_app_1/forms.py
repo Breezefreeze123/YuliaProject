@@ -17,7 +17,7 @@ class AddProductForm(forms.ModelForm):
 
     class Meta:
         model = Coffee
-        fields = ['title', 'slug', 'content', 'is_published', 'cat', 'tag']
+        fields = ['title', 'slug', 'content', 'is_published', 'cat', 'tag', 'photo']
         widgets = {
             'tag': forms.CheckboxSelectMultiple,
         }

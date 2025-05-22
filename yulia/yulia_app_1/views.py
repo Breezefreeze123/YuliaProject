@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.db.models import Count, Sum, Avg, Max, Min
 
-from .models import Coffee, Category, TagTable, Gost
+from .models import Coffee, Category, TagTable, Gost, UploadFiles
 from .forms import AddProductForm, UploadFileForm
 import uuid
 import datetime
@@ -110,15 +110,22 @@ def news(request):
 
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
+        
         if form.is_valid():
             try:
-                handle_uploaded_file(form.cleaned_data['file'])
+                # Стандартная загрузка файлов
+                # handle_uploaded_file(form.cleaned_data['file'])
+                
+                # Загрузка файлов через модель
+                instance = UploadFiles(upload=form.cleaned_data['file'])
+                instance.save()
             except Exception as e:
                 form.add_error(None, "Ошибка загрузки файла")
                 form.add_error(None, e)
 
     else:
         form = UploadFileForm()    
+        
 
     data = {
         'title': 'Coffee News',
@@ -137,7 +144,7 @@ def contacts(request):
 def add_product(request):
     
     if request.method == 'POST':
-        form = AddProductForm(request.POST)
+        form = AddProductForm(request.POST, request.FILES)
         if form.is_valid():
             try:
                 #Простой вывод словаря со всеми полями формы в командную строку, заменили на вывод в БД
@@ -152,6 +159,7 @@ def add_product(request):
                                       content=form.cleaned_data['content'], 
                                       is_published=form.cleaned_data['is_published'], 
                                       cat=form.cleaned_data['cat'],
+                                      photo=form.cleaned_data['photo'],
                                       )
 
                 Gost.objects.create(gost_product=form.cleaned_data['title'],
@@ -167,6 +175,8 @@ def add_product(request):
                 new_gost = Gost.objects.get(gost_number=form.cleaned_data['gost'])
                 new_coffee.gost = new_gost
                 new_coffee.save()
+
+                
 
             except Exception as e:
                 form.add_error(None, "Ошибка добавления продукта")
