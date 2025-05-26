@@ -4,6 +4,10 @@
 
 <h1>{{ post.title }}</h1>
 
+{% if post.photo %}
+<p><img src="{{ post.photo.url }}" alt="{{ post.title }}"></p>
+{% endif %}
+
 <p>{{ post.content }}</p>
 
 <table>

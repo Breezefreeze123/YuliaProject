@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 from .models import Coffee, Category, TagTable
 
 # Следующие методы регистрации аналогичны использованным декораторам @admin.register(Model):
@@ -13,7 +14,7 @@ admin.AdminSite.index_title='Coffeshop'
 class CoffeeAdmin(admin.ModelAdmin):
     # fields = [("title",'slug'), "content",'cat']
     # exclude=['is_published']
-    list_display=['id', 'title', 'is_published','cat', 'time_create']
+    list_display=['id', 'title','photo_admin_display', 'is_published','cat', 'time_create']
     list_display_links=['id', 'title']
     ordering=['-time_create']
     list_editable=['cat']
@@ -24,6 +25,13 @@ class CoffeeAdmin(admin.ModelAdmin):
     list_filter=['cat__title', 'is_published']
     prepopulated_fields = {"slug": ["title"]}
     filter_horizontal=['tag']
+    readonly_fields=['photo_admin_display']
+    save_on_top=True
+
+    @admin.display(description='Photo display')
+    def photo_admin_display(self, coffee: Coffee):
+       if coffee.photo:
+            return mark_safe(f'<img src="{coffee.photo.url}" width="50" height="auto">')
 
     # Добавление действия для отметки опубликованными выбранных значений
     @admin.action(description="Mark selected as published")

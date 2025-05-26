@@ -10,6 +10,11 @@
     {% if i.is_published %}
     <li>
         <h2><a href="{{ i.get_absolute_url }}">{{ i.title }}</a></h2>
+        
+        {% if i.photo %}
+            <p><img src="{{ i.photo.url }}" alt="{{ i.title }}" width="150" height="auto"></p>
+        {% endif %}
+
         <p>{{ i.content }}</p>
 
         <table>
@@ -32,6 +37,11 @@
     {% for tag in tag_selection %}
     <li>
         <h2><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></h2>
+        
+        {% if tag.photo %}
+            <p><img src="{{ tag.photo.url }}" alt="{{ tag.title }}" width="150" height="auto"></p>
+        {% endif %}
+        
         <p>{{ tag.content }}</p>
 
         <table>
