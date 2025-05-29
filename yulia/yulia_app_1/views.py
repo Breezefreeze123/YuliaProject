@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.db.models import Count, Sum, Avg, Max, Min
+from django.views import View
+from django.views.generic import TemplateView
 
 from .models import Coffee, Category, TagTable, Gost, UploadFiles
 from .forms import AddProductForm, UploadFileForm
@@ -24,6 +26,7 @@ def home(request):
     }
     return render(request, 'home.html', context=data)
 
+""" Заменена на CBW Menu >>>
 def menu(request):
 
     all_categories = Category.objects.annotate(total=Count('category')).filter(total__gt=0) #Проверка, что количество категорий в Category, связанных со статьями в Coffee, больше нуля
@@ -37,6 +40,19 @@ def menu(request):
         'all_tags': all_tags,
     }
     return render(request, 'menu/menu.html', context=data)
+"""
+    
+class Menu(TemplateView):
+    template_name = 'menu/menu.html'
+    extra_context = {
+        'title': 'Coffee Menu',
+        'title_tags': 'Тэги: ',
+        #Проверка, что количество категорий в Category, связанных со статьями в Coffee, больше нуля
+        'all_categories': Category.objects.annotate(total=Count('category')).filter(total__gt=0),
+        'main_menu': main_menu,
+        #Проверка, что количество тэгов в TagTable, связанных со статьями в Coffee, больше нуля
+        'all_tags': TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0),
+    }
 
 def show_category(request, cat_slug):
 
@@ -106,6 +122,7 @@ def handle_uploaded_file(f):
         for chunk in f.chunks():
             destination.write(chunk)
 
+""" Заменена на CBW News >>>
 def news(request):
 
     if request.method == 'POST':
@@ -133,6 +150,34 @@ def news(request):
         'form': form,
     }
     return render(request, 'news/news.html', context=data)
+"""
+    
+class News(View):
+    def get(self, request):
+        form = UploadFileForm()
+        data = {
+            'title': 'Coffee News',
+            'main_menu': main_menu,
+            'form': form,
+        }
+        return render(request, 'news/news.html', context=data)
+
+    def post(self, request):
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            try:            
+                # Загрузка файлов через модель
+                instance = UploadFiles(upload=form.cleaned_data['file'])
+                instance.save()
+            except Exception as e:
+                form.add_error(None, "Ошибка загрузки файла")
+                form.add_error(None, e)
+        data = {
+            'title': 'Coffee News',
+            'main_menu': main_menu,
+            'form': form,
+        }
+        return render(request, 'news/news.html', context=data)
 
 def contacts(request):
     data = {
@@ -191,9 +236,29 @@ def add_product(request):
     }
     return render(request, 'add_product/add_product.html', context=data)
 
+""" Заменена на CBW SignIn >>>
 def signin(request):
     data = {
         'title': 'Sign in',
         'main_menu': main_menu,
     }
     return render(request, 'signin/signin.html', context=data)
+"""
+""" Заменена на CBW SignIn через TemplateView >>>
+class SignIn(View):
+    def get(self, request):
+        data = {
+            'title': 'Sign in',
+            'main_menu': main_menu,
+        }
+        return render(request, 'signin/signin.html', context=data)
+
+    def post(self, request):
+        pass
+"""
+class SignIn(TemplateView):
+    template_name = 'signin/signin.html'
+    extra_context = {
+        'title': 'Sign in',
+        'main_menu': main_menu,
+    }
