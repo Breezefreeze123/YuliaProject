@@ -143,40 +143,38 @@ class ShowTag(ListView):
         context['all_tags'] = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0)
         return context
 
-def show_menu(request, menu_slug):
+# Заменена на CBV News(ListView)
+# def show_menu(request, menu_slug):
 
-    all_categories = Category.objects.annotate(total=Count('category')).filter(total__gt=0) #Проверка, что количество категорий в Category, связанных со статьями в Coffee, больше нуля
-    all_tags = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0) #Проверка, что количество тэгов в TagTable, связанных со статьями в Coffee, больше нуля
+#     all_categories = Category.objects.annotate(total=Count('category')).filter(total__gt=0) #Проверка, что количество категорий в Category, связанных со статьями в Coffee, больше нуля
+#     all_tags = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0) #Проверка, что количество тэгов в TagTable, связанных со статьями в Coffee, больше нуля
 
-    post = get_object_or_404(Coffee, slug=menu_slug)
+#     post = get_object_or_404(Coffee, slug=menu_slug)
 
-    data = {
-        'title_tags': 'Тэги: ',
-        'post': post,
-        'main_menu': main_menu,
-        'all_categories': all_categories,
-        'all_tags': all_tags,
-    }
-    return render(request, 'menu/menu_sections.html', context=data)
-
-# class ShowMenu(TemplateView):
-#     template_name = 'menu/menu_sections.html'
-#     extra_context = {
+#     data = {
 #         'title_tags': 'Тэги: ',
-#         'post': get_object_or_404(Coffee, slug=menu_slug),
+#         'post': post,
 #         'main_menu': main_menu,
-#         'all_categories': Category.objects.annotate(total=Count('category')).filter(total__gt=0), #Проверка, что количество категорий в Category, связанных со статьями в Coffee, больше нуля,
-#         'all_tags': TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0), #Проверка, что количество тэгов в TagTable, связанных со статьями в Coffee, больше нуляall_tags,
+#         'all_categories': all_categories,
+#         'all_tags': all_tags,
 #     }
+#     return render(request, 'menu/menu_sections.html', context=data)
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title_tags'] = 'Тэги: '
-#         context['main_menu'] = main_menu
-#         context['all_categories'] = Category.objects.annotate(total=Count('category')).filter(total__gt=0)
-#         context['all_tags'] = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0)
-#         context['post'] = get_object_or_404(Coffee, slug=menu_slug)
-#         return context
+class ShowMenu(ListView):
+    template_name = 'menu/menu_sections.html'
+    context_object_name = 'post'
+    allow_empty = False
+
+    def get_queryset(self):
+        return get_object_or_404(Coffee, slug=self.kwargs['menu_slug'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title_tags'] = 'Тэги: '
+        context['all_categories'] = Category.objects.annotate(total=Count('category')).filter(total__gt=0)
+        context['main_menu'] = main_menu
+        context['all_tags'] = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0)
+        return context
 
 def handle_uploaded_file(f):
     #new_rename = str(uuid.uuid4()) + f.name
