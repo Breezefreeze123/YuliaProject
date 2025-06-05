@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.db.models import Count, Sum, Avg, Max, Min
 from django.views import View
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView
 
 from .models import Coffee, Category, TagTable, Gost, UploadFiles
 from .forms import AddProductForm, UploadFileForm
@@ -93,12 +93,15 @@ class ShowCategory(ListView):
     allow_empty = False
 
     def get_queryset(self):
-        return Coffee.objects.filter(cat__slug=self.kwargs['cat_slug'])
+        # return Coffee.objects.filter(cat__slug=self.kwargs['cat_slug'])
+        self.category = get_object_or_404(Category, slug=self.kwargs['cat_slug'])
+        return Coffee.objects.filter(cat_id=self.category.pk)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        cat = context['post'][0].cat
-        context['title'] = 'Категория: ' + cat.title
+        # cat = context['post'][0].cat
+        # context['title'] = 'Категория: ' + cat.title
+        context['title'] = 'Категория: ' + self.category.title
         context['title_tags'] = 'Тэги: '
         context['all_categories'] = Category.objects.annotate(total=Count('category')).filter(total__gt=0)
         context['main_menu'] = main_menu
@@ -160,13 +163,29 @@ class ShowTag(ListView):
 #     }
 #     return render(request, 'menu/menu_sections.html', context=data)
 
-class ShowMenu(ListView):
-    template_name = 'menu/menu_sections.html'
-    context_object_name = 'post'
-    allow_empty = False
+# Заменена на ShowMenu(DetailView):
+# class ShowMenu(ListView):
+#     template_name = 'menu/menu_sections.html'
+#     context_object_name = 'post'
+#     allow_empty = False
 
-    def get_queryset(self):
-        return get_object_or_404(Coffee, slug=self.kwargs['menu_slug'])
+#     def get_queryset(self):
+#         return get_object_or_404(Coffee, slug=self.kwargs['menu_slug'])
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['title_tags'] = 'Тэги: '
+#         context['all_categories'] = Category.objects.annotate(total=Count('category')).filter(total__gt=0)
+#         context['main_menu'] = main_menu
+#         context['all_tags'] = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0)
+#         return context
+
+class ShowMenu(DetailView):
+    # model = Coffee
+    slug_url_kwarg = 'menu_slug'
+    context_object_name = 'post'
+    template_name = 'menu/menu_sections.html'
+    allow_empty = False
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -175,6 +194,9 @@ class ShowMenu(ListView):
         context['main_menu'] = main_menu
         context['all_tags'] = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0)
         return context
+    
+    def get_object(self, queryset = None):
+        return get_object_or_404(Coffee, is_published = True, slug=self.kwargs[self.slug_url_kwarg])
 
 def handle_uploaded_file(f):
     #new_rename = str(uuid.uuid4()) + f.name
