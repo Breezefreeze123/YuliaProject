@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.db.models import Count, Sum, Avg, Max, Min
 from django.views import View
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView
+from django.urls import reverse, reverse_lazy
 
 from .models import Coffee, Category, TagTable, Gost, UploadFiles
 from .forms import AddProductForm, UploadFileForm
@@ -198,18 +199,18 @@ class ShowMenu(DetailView):
     def get_object(self, queryset = None):
         return get_object_or_404(Coffee, is_published = True, slug=self.kwargs[self.slug_url_kwarg])
 
-def handle_uploaded_file(f):
-    #new_rename = str(uuid.uuid4()) + f.name
+# def handle_uploaded_file(f):
+#     #new_rename = str(uuid.uuid4()) + f.name
     
-    date_time = datetime.datetime.now()
-    date_time_format = f'{str(date_time.strftime("%d"))}_{str(date_time.strftime("%b"))}_{str(date_time.strftime("%H"))}_{str(date_time.strftime("%M"))}_{str(date_time.strftime("%S"))}'
-    new_rename = f'{date_time_format}_{f.name}'
+#     date_time = datetime.datetime.now()
+#     date_time_format = f'{str(date_time.strftime("%d"))}_{str(date_time.strftime("%b"))}_{str(date_time.strftime("%H"))}_{str(date_time.strftime("%M"))}_{str(date_time.strftime("%S"))}'
+#     new_rename = f'{date_time_format}_{f.name}'
 
     
-    with open(f"uploads/{new_rename}", "wb+") as destination:
+#     with open(f"uploads/{new_rename}", "wb+") as destination:
         
-        for chunk in f.chunks():
-            destination.write(chunk)
+#         for chunk in f.chunks():
+#             destination.write(chunk)
 
 # Заменена на CBV News(View)
 # def news(request):
@@ -240,32 +241,44 @@ def handle_uploaded_file(f):
 #     }
 #     return render(request, 'news/news.html', context=data)
     
-class News(View):
-    def get(self, request):
-        form = UploadFileForm()
-        data = {
-            'title': 'Coffee News',
-            'main_menu': main_menu,
-            'form': form,
-        }
-        return render(request, 'news/news.html', context=data)
+# class News(View):
+#     def get(self, request):
+#         form = UploadFileForm()
+#         data = {
+#             'title': 'Coffee News',
+#             'main_menu': main_menu,
+#             'form': form,
+#         }
+#         return render(request, 'news/news.html', context=data)
 
-    def post(self, request):
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            try:            
-                # Загрузка файлов через модель
-                instance = UploadFiles(upload=form.cleaned_data['file'])
-                instance.save()
-            except Exception as e:
-                form.add_error(None, "Ошибка загрузки файла")
-                form.add_error(None, e)
-        data = {
-            'title': 'Coffee News',
-            'main_menu': main_menu,
-            'form': form,
-        }
-        return render(request, 'news/news.html', context=data)
+#     def post(self, request):
+#         form = UploadFileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             try:            
+#                 # Загрузка файлов через модель
+#                 instance = UploadFiles(upload=form.cleaned_data['file'])
+#                 instance.save()
+#             except Exception as e:
+#                 form.add_error(None, "Ошибка загрузки файла")
+#                 form.add_error(None, e)
+#         data = {
+#             'title': 'Coffee News',
+#             'main_menu': main_menu,
+#             'form': form,
+#         }
+#         return render(request, 'news/news.html', context=data)
+
+class News(FormView):
+    template_name = 'news/news.html'
+    form_class = UploadFileForm
+    success_url = reverse_lazy('menu')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Coffee News'
+        context['main_menu'] = main_menu
+        return context
+    
 
 # Заменена на CBV Contacts(TemplateView)
 # def contacts(request):
@@ -289,55 +302,110 @@ class Contacts(TemplateView):
         'main_menu': main_menu,
     }
 
-def add_product(request):
+# Заменила на AddProduct(FormView)
+# def add_product(request):
     
-    if request.method == 'POST':
-        form = AddProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            try:
-                #Простой вывод словаря со всеми полями формы в командную строку, заменили на вывод в БД
-                #print(form.cleaned_data)
+#     if request.method == 'POST':
+#         form = AddProductForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             try:
+#                 #Простой вывод словаря со всеми полями формы в командную строку, заменили на вывод в БД
+#                 #print(form.cleaned_data)
                               
-                #Внесение записей из формы в БД, если названия полей в форме полностью соответствуют названиям полей в модели.
-                #Заменила на внесение по каждому полю, чтобы настроить связи ManyToMany и OneToOne
-                #Coffee.objects.create(**form.cleaned_data)
+#                 #Внесение записей из формы в БД, если названия полей в форме полностью соответствуют названиям полей в модели.
+#                 #Заменила на внесение по каждому полю, чтобы настроить связи ManyToMany и OneToOne
+#                 #Coffee.objects.create(**form.cleaned_data)
                 
-                Coffee.objects.create(title=form.cleaned_data['title'],
-                                      slug=form.cleaned_data['slug'],
-                                      content=form.cleaned_data['content'], 
-                                      is_published=form.cleaned_data['is_published'], 
-                                      cat=form.cleaned_data['cat'],
-                                      photo=form.cleaned_data['photo'],
-                                      )
+#                 Coffee.objects.create(title=form.cleaned_data['title'],
+#                                       slug=form.cleaned_data['slug'],
+#                                       content=form.cleaned_data['content'], 
+#                                       is_published=form.cleaned_data['is_published'], 
+#                                       cat=form.cleaned_data['cat'],
+#                                       photo=form.cleaned_data['photo'],
+#                                       )
 
-                Gost.objects.create(gost_product=form.cleaned_data['title'],
+#                 Gost.objects.create(gost_product=form.cleaned_data['title'],
+#                                     gost_number=form.cleaned_data['gost'],
+#                                     )
+
+#                 #Связывание Coffee и TagTable через ManyToManyField
+#                 new_coffee = Coffee.objects.get(slug=form.cleaned_data['slug'])
+#                 lst_tag = list(form.cleaned_data['tag'])
+#                 new_coffee.tag.set(lst_tag)               
+
+#                 #Связывание Coffee и Gost через OneToOneField
+#                 new_gost = Gost.objects.get(gost_number=form.cleaned_data['gost'])
+#                 new_coffee.gost = new_gost
+#                 new_coffee.save()
+
+                
+
+#             except Exception as e:
+#                 form.add_error(None, "Ошибка добавления продукта")
+#                 form.add_error(None, e)
+#     else:
+#         form = AddProductForm()
+
+#     data = {
+#         'title': 'Add product',
+#         'main_menu': main_menu,
+#         'form': form,
+#     }
+#     return render(request, 'add_product/add_product.html', context=data)
+
+class AddProduct(FormView):
+    template_name = 'add_product/add_product.html'
+    form_class = AddProductForm
+    success_url = reverse_lazy('menu')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Add product'
+        context['main_menu'] = main_menu
+        return context
+    
+    def form_valid(self, form):
+        #Простой вывод словаря со всеми полями формы в командную строку, заменили на вывод в БД
+        #print(form.cleaned_data)
+                              
+        #Внесение записей из формы в БД, если названия полей в форме полностью соответствуют названиям полей в модели.
+        #Заменила на внесение по каждому полю, чтобы настроить связи ManyToMany и OneToOne
+        #Coffee.objects.create(**form.cleaned_data)
+        Coffee.objects.create(title=form.cleaned_data['title'],
+                                    slug=form.cleaned_data['slug'],
+                                    content=form.cleaned_data['content'], 
+                                    is_published=form.cleaned_data['is_published'], 
+                                    cat=form.cleaned_data['cat'],
+                                    photo=form.cleaned_data['photo'],
+                                    )
+
+        Gost.objects.create(gost_product=form.cleaned_data['title'],
                                     gost_number=form.cleaned_data['gost'],
                                     )
 
-                #Связывание Coffee и TagTable через ManyToManyField
-                new_coffee = Coffee.objects.get(slug=form.cleaned_data['slug'])
-                lst_tag = list(form.cleaned_data['tag'])
-                new_coffee.tag.set(lst_tag)               
+        #Связывание Coffee и TagTable через ManyToManyField
+        new_coffee = Coffee.objects.get(slug=form.cleaned_data['slug'])
+        lst_tag = list(form.cleaned_data['tag'])
+        new_coffee.tag.set(lst_tag)               
 
-                #Связывание Coffee и Gost через OneToOneField
-                new_gost = Gost.objects.get(gost_number=form.cleaned_data['gost'])
-                new_coffee.gost = new_gost
-                new_coffee.save()
+        #Связывание Coffee и Gost через OneToOneField
+        new_gost = Gost.objects.get(gost_number=form.cleaned_data['gost'])
+        new_coffee.gost = new_gost
+        new_coffee.save()
+        
+        return super().form_valid(form)
 
-                
+# Не использовала AddProduct(CreateView), т.к. с ГОСТ связка не работает  
+# class AddProduct(CreateView):
+#     template_name = 'add_product/add_product.html'
+#     form_class = AddProductForm
+#     #success_url = reverse_lazy('menu')
 
-            except Exception as e:
-                form.add_error(None, "Ошибка добавления продукта")
-                form.add_error(None, e)
-    else:
-        form = AddProductForm()
-
-    data = {
-        'title': 'Add product',
-        'main_menu': main_menu,
-        'form': form,
-    }
-    return render(request, 'add_product/add_product.html', context=data)
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['title'] = 'Add product'
+#         context['main_menu'] = main_menu
+#         return context
 
 # Заменена на CBV SignIn(View)
 # def signin(request):
