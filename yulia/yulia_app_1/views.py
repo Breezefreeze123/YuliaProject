@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.db.models import Count, Sum, Avg, Max, Min
 from django.views import View
-from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView
+from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 
 from .models import Coffee, Category, TagTable, Gost, UploadFiles
@@ -394,6 +394,30 @@ class AddProduct(FormView):
         new_coffee.save()
         
         return super().form_valid(form)
+
+class EditProduct(UpdateView):
+    model = Coffee
+    fields = ['title', 'content', 'photo', 'is_published', 'cat']
+    template_name = 'add_product/add_product.html'
+    success_url = reverse_lazy('menu')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Edit product'
+        context['main_menu'] = main_menu
+        return context
+
+class DeleteProduct(DeleteView):
+    model = Coffee
+    fields = ['title', 'content', 'photo', 'is_published', 'cat']
+    template_name = 'add_product/add_product.html'
+    success_url = reverse_lazy('menu')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Delete product'
+        context['main_menu'] = main_menu
+        return context
 
 # Не использовала AddProduct(CreateView), т.к. с ГОСТ связка не работает  
 # class AddProduct(CreateView):
