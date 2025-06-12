@@ -4,6 +4,7 @@ from django.db.models import Count, Sum, Avg, Max, Min
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
+from django.core.paginator import Paginator
 
 from .models import Coffee, Category, TagTable, Gost, UploadFiles
 from .forms import AddProductForm, UploadFileForm
@@ -36,36 +37,44 @@ class Home(TemplateView):
     }
 
 # Заменена на CBV Menu(ListView)
-# def menu(request):
+def menu(request):
 
-#     all_categories = Category.objects.annotate(total=Count('category')).filter(total__gt=0) #Проверка, что количество категорий в Category, связанных со статьями в Coffee, больше нуля
-#     all_tags = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0) #Проверка, что количество тэгов в TagTable, связанных со статьями в Coffee, больше нуля
-  
-#     data = {
-#         'title': 'Coffee Menu',
-#         'title_tags': 'Тэги: ',
-#         'all_categories': all_categories,
-#         'main_menu': main_menu,
-#         'all_tags': all_tags,
-#     }
-#     return render(request, 'menu/menu.html', context=data)
+    all_categories = Category.objects.annotate(total=Count('category')).filter(total__gt=0) #Проверка, что количество категорий в Category, связанных со статьями в Coffee, больше нуля
+    all_tags = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0) #Проверка, что количество тэгов в TagTable, связанных со статьями в Coffee, больше нуля
+    all_products = Coffee.objects.all().filter(is_published=1)
     
-class Menu(ListView):
-    #model = Coffee
-    template_name = 'menu/menu.html'
-    context_object_name = 'all_products'
-    extra_context = {
+    paginator = Paginator(all_products, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    data = {
         'title': 'Coffee Menu',
         'title_tags': 'Тэги: ',
-        #Проверка, что количество категорий в Category, связанных со статьями в Coffee, больше нуля
-        'all_categories': Category.objects.annotate(total=Count('category')).filter(total__gt=0),
+        'all_categories': all_categories,
         'main_menu': main_menu,
-        #Проверка, что количество тэгов в TagTable, связанных со статьями в Coffee, больше нуля
-        'all_tags': TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0),
+        'all_tags': all_tags,
+        'all_products': all_products,
+        'page_obj': page_obj,
+
     }
+    return render(request, 'menu/menu.html', context=data)
     
-    def get_queryset(self):
-        return Coffee.objects.all().filter(is_published=1)
+# class Menu(ListView):
+#     #model = Coffee
+#     template_name = 'menu/menu.html'
+#     context_object_name = 'all_products'
+#     extra_context = {
+#         'title': 'Coffee Menu',
+#         'title_tags': 'Тэги: ',
+#         #Проверка, что количество категорий в Category, связанных со статьями в Coffee, больше нуля
+#         'all_categories': Category.objects.annotate(total=Count('category')).filter(total__gt=0),
+#         'main_menu': main_menu,
+#         #Проверка, что количество тэгов в TagTable, связанных со статьями в Coffee, больше нуля
+#         'all_tags': TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0),
+#     }
+    
+#     def get_queryset(self):
+#         return Coffee.objects.all().filter(is_published=1)
 
 # Заменена на CBV ShowCategory(ListView)
 # def show_category(request, cat_slug):

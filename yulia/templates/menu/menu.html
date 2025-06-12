@@ -58,7 +58,7 @@
 </ul>
 <!-- Конец Вывода перечня продуктов по тэгам -->    
 
-<!-- Вывод всех продуктов -->
+<!-- Вывод всех продуктов
 <ul>
     {% for product in all_products %}
     <li>
@@ -67,5 +67,26 @@
     {% endfor %}
 </ul>
 <!-- Конец Вывода всех продуктов -->
+
+<!-- Пагинация вывода всех продуктов -->
+<ul>
+    {% for page in page_obj %}
+    <li>
+        <h2>{{ page.title }}</h2>   
+    </li>
+    {% endfor %}
+    <p>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</p>
+</ul>
+
+<table>
+        <td>
+            <tr>Перейти к странице: </tr>
+            {% for item in page_obj.paginator.page_range %}
+            <a href="?page={{ item }}">{{ item }}</a>    
+            {% endfor %}
+        </td>
+ </table>
+
+<!-- Конец пагинации вывода всех продуктов -->
 
 {% endblock %}
