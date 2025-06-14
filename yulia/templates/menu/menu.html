@@ -4,8 +4,38 @@
 
 <h1>{{ title }}</h1>
 
+<!-- Пагинация -->
+{% if page_obj.has_previous %}
+    <a href="?page=1"> В начало </a>
+    <a href="?page={{ page_obj.previous_page_number }}"> Предыдущая </a>
+{% endif %}
+
+<table>
+        <tr>
+            {% if page_obj.has_other_pages %}
+            
+            {% for item in page_obj.paginator.page_range %}
+                {% if item == page_obj.number %}
+                    <td><p>{{ item }}</p></td>
+                <!-- Отображение только 2-х страниц слева и справа от текущей страницы -->
+                {% elif item >= page_obj.number|add:-2 and item <= page_obj.number|add:2 %}
+                    <td><a href="?page={{ item }}">{{ item }}</a></td>    
+                {% endif %}
+            {% endfor %}
+
+            {% endif %} 
+        </tr>
+ </table>
+
+{% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}"> Следующая </a>
+    <a href="?page={{ page_obj.paginator.num_pages }}"> В конец </a>
+{% endif %}
+<!-- Конец пагинации -->
+
 <!-- Вывод перечня продуктов по категориям -->    
 <ul>
+    
     {% for i in post %}
     {% if i.is_published %}
     <li>
@@ -25,6 +55,7 @@
                 {% endfor%}
             </td>
         </table>
+        <hr>
 
     </li>
     {% endif %}
@@ -52,41 +83,11 @@
                 {% endfor%}
             </td>
         </table>
+        <hr>
 
     </li>
     {% endfor %}
 </ul>
 <!-- Конец Вывода перечня продуктов по тэгам -->    
-
-<!-- Вывод всех продуктов
-<ul>
-    {% for product in all_products %}
-    <li>
-        <h2>{{ product.title }}</h2>   
-    </li>
-    {% endfor %}
-</ul>
-<!-- Конец Вывода всех продуктов -->
-
-<!-- Пагинация вывода всех продуктов -->
-<ul>
-    {% for page in page_obj %}
-    <li>
-        <h2>{{ page.title }}</h2>   
-    </li>
-    {% endfor %}
-    <p>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</p>
-</ul>
-
-<table>
-        <td>
-            <tr>Перейти к странице: </tr>
-            {% for item in page_obj.paginator.page_range %}
-            <a href="?page={{ item }}">{{ item }}</a>    
-            {% endfor %}
-        </td>
- </table>
-
-<!-- Конец пагинации вывода всех продуктов -->
 
 {% endblock %}
