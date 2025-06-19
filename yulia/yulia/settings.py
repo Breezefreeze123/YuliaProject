@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'yulia_app_1.apps.YuliaTestConfig',
+    'users.apps.UsersConfig',
     'django_extensions',
     'debug_toolbar',
 

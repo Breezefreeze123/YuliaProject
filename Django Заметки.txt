@@ -22,7 +22,7 @@ from django.http import HttpResponse
 def [название функции](request):
     return render(request, '[название функции].html')
 
-4.2 Идем в url.py в папке основной конфигурации. В него добавляем путь на новое приложение в раздел urlpatterns
+4.2 Идем в urls.py в папке основной конфигурации. В него добавляем путь на новое приложение в раздел urlpatterns
 под функцией path:
 
 from django.contrib import admin
