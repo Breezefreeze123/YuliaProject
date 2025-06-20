@@ -12,21 +12,10 @@ import uuid
 import datetime
 import time
 
-main_menu = [
-    {'title': 'Main', 'url_name': 'home'},
-    {'title': 'Menu', 'url_name': 'menu'},
-    {'title': 'News', 'url_name': 'news'},
-    {'title': 'Contacts', 'url_name': 'contacts'},
-    {'title': 'Add product', 'url_name': 'add_product'},
-    {'title': 'Log in', 'url_name': 'users:login'},
-    {'title': 'Log out', 'url_name': 'users:logout'},
-]
-
 class Home(TemplateView):
     template_name = 'home.html'
     extra_context = {
         'title': 'Homepage of Yulia Coffeeshop',
-        'main_menu': main_menu,
     }
 
 class Menu(ListView):
@@ -39,7 +28,6 @@ class Menu(ListView):
         'title_tags': 'Тэги: ',
         #Проверка, что количество категорий в Category, связанных со статьями в Coffee, больше нуля
         'all_categories': Category.objects.annotate(total=Count('category')).filter(total__gt=0),
-        'main_menu': main_menu,
         #Проверка, что количество тэгов в TagTable, связанных со статьями в Coffee, больше нуля
         'all_tags': TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0),
     }
@@ -65,7 +53,6 @@ class ShowCategory(ListView):
         context['title'] = 'Категория: ' + self.category.title
         context['title_tags'] = 'Тэги: '
         context['all_categories'] = Category.objects.annotate(total=Count('category')).filter(total__gt=0)
-        context['main_menu'] = main_menu
         context['all_tags'] = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0)
         return context
 
@@ -84,7 +71,6 @@ class ShowTag(ListView):
         context['title'] = 'Тэг: ' + self.tag.tag
         context['title_tags'] = 'Тэги: '
         context['all_categories'] = Category.objects.annotate(total=Count('category')).filter(total__gt=0)
-        context['main_menu'] = main_menu
         context['all_tags'] = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0)
         return context
 
@@ -99,7 +85,6 @@ class ShowMenu(DetailView):
         context = super().get_context_data(**kwargs)
         context['title_tags'] = 'Тэги: '
         context['all_categories'] = Category.objects.annotate(total=Count('category')).filter(total__gt=0)
-        context['main_menu'] = main_menu
         context['all_tags'] = TagTable.objects.annotate(total=Count('tagtable')).filter(total__gt=0)
         return context
     
@@ -114,14 +99,12 @@ class News(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Coffee News'
-        context['main_menu'] = main_menu
         return context
     
 class Contacts(TemplateView):
     template_name = 'contacts/contacts.html'
     extra_context = {
         'title': 'Coffeeshop contacts',
-        'main_menu': main_menu,
     }
 
 class AddProduct(FormView):
@@ -132,7 +115,6 @@ class AddProduct(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Add product'
-        context['main_menu'] = main_menu
         return context
     
     def form_valid(self, form):
@@ -175,7 +157,6 @@ class EditProduct(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Edit product'
-        context['main_menu'] = main_menu
         return context
 
 class DeleteProduct(DeleteView):
@@ -187,5 +168,4 @@ class DeleteProduct(DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Delete product'
-        context['main_menu'] = main_menu
         return context

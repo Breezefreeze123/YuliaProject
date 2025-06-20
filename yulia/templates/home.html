@@ -17,9 +17,18 @@
             {% for m in main_menu %}
             <td>
                 <h1><a href="{% url m.url_name %}">{{m.title}}</a></h1>
-            </td>        
+            </td>   
             {% endfor %}
-       
+            
+            {% if user.is_authenticated %}
+            <td>
+                <h1> {{ user.username }} <a href="{% url 'users:logout' %}">Log out</a></h1>
+            </td>
+            {% else %}
+            <td>
+                <h1><a href="{% url 'users:login' %}">Log in</a>Register</h1>
+            </td>
+            {% endif %}
     </table>
 <!-- Конец Главного меню -->        
 
