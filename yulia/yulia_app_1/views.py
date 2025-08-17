@@ -12,6 +12,13 @@ import uuid
 import datetime
 import time
 
+# Импорт для генерации pdf договора 
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.units import inch
+
 class Home(TemplateView):
     template_name = 'home.html'
     extra_context = {
@@ -169,3 +176,38 @@ class DeleteProduct(DeleteView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Delete product'
         return context
+    
+def add_agreement(request):
+    # Create a file-like buffer to receive PDF data
+    buffer = io.BytesIO()
+
+    # Create the PDF object, using the buffer as its "file."
+    p = canvas.Canvas(buffer, pagesize=letter, bottomup=0)
+
+    # Draw things on the PDF. Here's where the PDF generation happens.
+    # See the ReportLab documentation for the full list of functionality.
+    # p.drawString(100,100,'Hello World')
+
+    # Create text object
+    textobject = p.beginText()
+    textobject.setTextOrigin(inch, inch)
+
+    # Добавляем содержимое
+    coffee_lines = Coffee.objects.all()
+    lines = []
+    for coffee_line in coffee_lines:
+        lines.append(coffee_line.title)
+        
+    for line in lines:
+        textobject.textLine(line)
+
+    # Close the PDF object cleanly
+    p.drawText(textobject) 
+    p.showPage()
+    p.save()
+
+    # FileResponse sets the Content-Disposition header so that browsers
+    # present the option to save the file.
+    buffer.seek(0)
+
+    return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
