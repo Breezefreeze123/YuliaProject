@@ -13,5 +13,5 @@ urlpatterns = [
     path('menu/<slug:menu_slug>/', views.ShowMenu.as_view(), name = 'show_menu'),
     path('menu/category/<slug:cat_slug>/', views.ShowCategory.as_view(), name = 'show_category'),
     path('menu/tag/<slug:tag_slug>/', views.ShowTag.as_view(), name = 'show_tag'),
-    path('add_agreement/', views.add_agreement, name = 'add_agreement'),
+    path('add_agreement/', views.AddAgreement.as_view(), name = 'add_agreement'),
 ]

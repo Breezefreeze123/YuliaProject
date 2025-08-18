@@ -1,5 +1,5 @@
 from django import forms
-from .models import Coffee, Category, TagTable
+from .models import Coffee, Category, TagTable, Client
 from django.core.validators import MinLengthValidator, MaxLengthValidator
 
 
@@ -24,4 +24,9 @@ class AddProductForm(forms.ModelForm):
 
 class UploadFileForm(forms.Form):
     file = forms.FileField()
-    
+
+class AddClientForm(forms.ModelForm):
+
+    class Meta:
+        model = Client
+        fields = ['name', 'passport_num', 'agreement_num']

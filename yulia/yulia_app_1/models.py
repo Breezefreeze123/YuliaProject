@@ -71,11 +71,13 @@ class UploadFiles(models.Model):
         return self.upload    
 
 class Client(models.Model):
-
+    
     name = models.CharField(max_length=50)
-    passport_num = models.IntegerField(max_length=50, unique=True)
+    passport_num = models.IntegerField(unique=True)
+    agreement_num = models.CharField()
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
+    agreement_date = models.DateField(auto_now_add=True)
     
     class Meta:
         verbose_name='Реквизиты клиентов'
@@ -84,5 +86,3 @@ class Client(models.Model):
     def __str__(self):
         return self.name
     
-    def get_absolute_url(self):
-        return reverse('add_agreement')

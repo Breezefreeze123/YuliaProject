@@ -6,8 +6,8 @@ from django.views.generic import TemplateView, ListView, DetailView, FormView, C
 from django.urls import reverse, reverse_lazy
 from django.core.paginator import Paginator
 
-from .models import Coffee, Category, TagTable, Gost, UploadFiles
-from .forms import AddProductForm, UploadFileForm
+from .models import Coffee, Category, TagTable, Gost, UploadFiles, Client
+from .forms import AddProductForm, UploadFileForm, AddClientForm
 import uuid
 import datetime
 import time
@@ -177,6 +177,7 @@ class DeleteProduct(DeleteView):
         context['title'] = 'Delete product'
         return context
     
+# Функция добавления pdf из документации. Не используется на сайте: 
 def add_agreement(request):
     # Create a file-like buffer to receive PDF data
     buffer = io.BytesIO()
@@ -211,3 +212,42 @@ def add_agreement(request):
     buffer.seek(0)
 
     return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
+
+class AddAgreement(FormView):
+    template_name = 'add_agreement/add_agreement.html'
+    form_class = AddClientForm
+    success_url = reverse_lazy('menu')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Add client credentials'
+        return context
+    
+    def form_valid(self, form):
+        # Создание записи в БД
+        Client.objects.create(name=form.cleaned_data['name'],
+                              passport_num=form.cleaned_data['passport_num'],
+                              agreement_num=form.cleaned_data['agreement_num'],
+                             )
+
+        # Создание pdf
+        buffer = io.BytesIO()
+        p = canvas.Canvas(buffer, pagesize=letter, bottomup=0)
+        textobject = p.beginText()
+        textobject.setTextOrigin(inch, inch)
+
+        client_lines = Client.objects.all()
+        lines = []
+        for client_line in client_lines:
+            lines.append(client_line.name)
+            
+        for line in lines:
+            textobject.textLine(line)
+
+        p.drawText(textobject) 
+        p.showPage()
+        p.save()
+        buffer.seek(0)
+        return FileResponse(buffer, as_attachment=True, filename='Clients.pdf')
+
+        return super().form_valid(form)
