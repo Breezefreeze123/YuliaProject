@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'django_extensions',
     'debug_toolbar',
+    'qr_code',
 
 ]
 

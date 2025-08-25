@@ -1,0 +1,9 @@
+<h1>{{ title }}</h1>
+
+<p> Agreement number: {{ new_client.agreement_num }}</p>
+<p> Agreement date: {{ new_client.agreement_date }}</p>
+<p> </p>
+<p> Client name: {{ new_client.name }}</p>
+<p> Passport number: {{ new_client.passport_num }}</p>
+
+<a href="{{ new_client.get_absolute_url }}">Create Pdf</a>

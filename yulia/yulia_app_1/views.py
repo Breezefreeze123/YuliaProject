@@ -15,9 +15,14 @@ import time
 # Импорт для генерации pdf договора 
 import io
 from django.http import FileResponse
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
-from reportlab.lib.units import inch
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+# from reportlab.pdfgen import canvas
+# from reportlab.lib.pagesizes import letter
+# from reportlab.lib.units import inch
+
+# Импорт для генерации qr для договора 
+import qrcode
 
 class Home(TemplateView):
     template_name = 'home.html'
@@ -177,77 +182,64 @@ class DeleteProduct(DeleteView):
         context['title'] = 'Delete product'
         return context
     
-# Функция добавления pdf из документации. Не используется на сайте: 
-def add_agreement(request):
-    # Create a file-like buffer to receive PDF data
-    buffer = io.BytesIO()
-
-    # Create the PDF object, using the buffer as its "file."
-    p = canvas.Canvas(buffer, pagesize=letter, bottomup=0)
-
-    # Draw things on the PDF. Here's where the PDF generation happens.
-    # See the ReportLab documentation for the full list of functionality.
-    # p.drawString(100,100,'Hello World')
-
-    # Create text object
-    textobject = p.beginText()
-    textobject.setTextOrigin(inch, inch)
-
-    # Добавляем содержимое
-    coffee_lines = Coffee.objects.all()
-    lines = []
-    for coffee_line in coffee_lines:
-        lines.append(coffee_line.title)
-        
-    for line in lines:
-        textobject.textLine(line)
-
-    # Close the PDF object cleanly
-    p.drawText(textobject) 
-    p.showPage()
-    p.save()
-
-    # FileResponse sets the Content-Disposition header so that browsers
-    # present the option to save the file.
-    buffer.seek(0)
-
-    return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
-
 class AddAgreement(FormView):
     template_name = 'add_agreement/add_agreement.html'
     form_class = AddClientForm
-    success_url = reverse_lazy('menu')
+    #success_url = reverse_lazy('show_client_agreement')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Add client credentials'
         return context
-    
+
     def form_valid(self, form):
         # Создание записи в БД
-        Client.objects.create(name=form.cleaned_data['name'],
+        new_client = Client.objects.create(name=form.cleaned_data['name'],
                               passport_num=form.cleaned_data['passport_num'],
                               agreement_num=form.cleaned_data['agreement_num'],
                              )
-
-        # Создание pdf
-        buffer = io.BytesIO()
-        p = canvas.Canvas(buffer, pagesize=letter, bottomup=0)
-        textobject = p.beginText()
-        textobject.setTextOrigin(inch, inch)
-
-        client_lines = Client.objects.all()
-        lines = []
-        for client_line in client_lines:
-            lines.append(client_line.name)
-            
-        for line in lines:
-            textobject.textLine(line)
-
-        p.drawText(textobject) 
-        p.showPage()
-        p.save()
-        buffer.seek(0)
-        return FileResponse(buffer, as_attachment=True, filename='Clients.pdf')
+        self.success_url = reverse_lazy('show_agreement', kwargs={'pk_agreement':new_client.pk})
 
         return super().form_valid(form)
+
+def generate_qr(request):
+    img = qrcode.make('Some data here')
+    buffer = io.BytesIO()
+    img.save(buffer, format="png")
+    return HttpResponse(buffer.getvalue(), content_type = 'image/png')
+         
+def show_agreement(request, pk_agreement):
+    context = {
+        'title': 'Agreement preview',
+        'new_client': get_object_or_404(Client,pk=pk_agreement) 
+    }
+    return render(request, 'add_agreement/show_agreement.html', context)
+
+def pdf_agreement(request, pk_agreement):
+    template_path = 'add_agreement/pdf_agreement.html'
+    
+    new_client = get_object_or_404(Client,pk=pk_agreement)
+    context = {
+        'title': 'Agreement',
+        'new_client': new_client 
+    }
+
+    # Create a Django response object, setting the PDF as the content type
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="Agreement.pdf"'
+
+    # Render the HTML template
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # html_source = "<html><body><p>To PDF or not to PDF</p></body></html>"
+
+    # Convert HTML to PDF
+    pisa_status = pisa.CreatePDF(
+        html,                # the HTML to convert
+        dest=response)       # file handle to receive result
+
+    # If error, show an error page
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
