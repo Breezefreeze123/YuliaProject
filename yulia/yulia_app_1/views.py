@@ -202,8 +202,10 @@ class AddAgreement(FormView):
 
         return super().form_valid(form)
 
-def generate_qr(request):
-    img = qrcode.make('Some data here')
+def generate_qr(request, pk_agreement):
+    new_client = get_object_or_404(Client,pk=pk_agreement)
+
+    img = qrcode.make(f'Agreement number: {new_client.agreement_num}, Agreement date: {new_client.agreement_date}')
     buffer = io.BytesIO()
     img.save(buffer, format="png")
     return HttpResponse(buffer.getvalue(), content_type = 'image/png')

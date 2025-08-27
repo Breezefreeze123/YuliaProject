@@ -15,7 +15,7 @@ urlpatterns = [
     path('menu/tag/<slug:tag_slug>/', views.ShowTag.as_view(), name = 'show_tag'),
     path('add_agreement/', views.AddAgreement.as_view(), name = 'add_agreement'),
     path('show_agreement/<int:pk_agreement>', views.show_agreement, name = 'show_agreement'),
-    path('show_agreement/pdf_agreement/<int:pk_agreement>', views.pdf_agreement, name = 'pdf_agreement'),
-    path('generate_qr/', views.generate_qr, name = 'generate_qr'),
+    path('pdf_agreement/<int:pk_agreement>', views.pdf_agreement, name = 'pdf_agreement'),
+    path('generate_qr/<int:pk_agreement>', views.generate_qr, name = 'generate_qr'),
 
 ]
