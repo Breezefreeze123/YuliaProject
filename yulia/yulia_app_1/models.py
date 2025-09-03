@@ -78,6 +78,7 @@ class Client(models.Model):
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
     agreement_date = models.DateField(auto_now_add=True)
+    quantity = models.FloatField(blank=False, default=1)
     
     class Meta:
         verbose_name='Реквизиты клиентов'

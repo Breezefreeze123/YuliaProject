@@ -5,5 +5,9 @@
 <p> </p>
 <p> Client name: {{ new_client.name }}</p>
 <p> Passport number: {{ new_client.passport_num }}</p>
+<p> </p>
+<p> Amount in RUB: {{ amount_RUB }} = {{ new_client.quantity }} kg * {{ price_RUB }} RUB/kg</p>
+<p> Amount in USD: {{ amount_USD }} = {{ new_client.quantity }} kg * {{ price_USD }} USD/kg</p>
+<p> </p>
 <img src='http://127.0.0.1:8000/generate_qr/{{new_client.pk}}' width="100" height="100">
 <p> </p>

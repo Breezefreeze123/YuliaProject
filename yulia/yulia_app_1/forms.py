@@ -25,8 +25,13 @@ class AddProductForm(forms.ModelForm):
 class UploadFileForm(forms.Form):
     file = forms.FileField()
 
-class AddClientForm(forms.ModelForm):
+class AddClientForm(forms.Form):
 
-    class Meta:
-        model = Client
-        fields = ['name', 'passport_num', 'agreement_num']
+    name = forms.CharField(max_length=50, label='ФИО: ')
+    passport_num = forms.IntegerField(label='Паспорт, номер: ')
+    agreement_num = forms.CharField(label='Номер договора: ')
+    quantity = forms.FloatField(label='Количество, кг: ')
+
+    # class Meta:
+    #     model = Client
+    #     fields = ['name', 'passport_num', 'agreement_num', 'quantity']

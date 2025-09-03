@@ -17,5 +17,7 @@ urlpatterns = [
     path('show_agreement/<int:pk_agreement>', views.show_agreement, name = 'show_agreement'),
     path('pdf_agreement/<int:pk_agreement>', views.pdf_agreement, name = 'pdf_agreement'),
     path('generate_qr/<int:pk_agreement>', views.generate_qr, name = 'generate_qr'),
+    path('get_rate_USD/', views.get_rate_USD, name = 'get_rate_USD'),
+
 
 ]

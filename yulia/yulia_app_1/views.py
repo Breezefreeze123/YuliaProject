@@ -24,6 +24,10 @@ from xhtml2pdf import pisa
 # Импорт для генерации qr для договора 
 import qrcode
 
+# Импорт для подгрузки курсов валют
+import requests
+import json
+
 class Home(TemplateView):
     template_name = 'home.html'
     extra_context = {
@@ -197,23 +201,41 @@ class AddAgreement(FormView):
         new_client = Client.objects.create(name=form.cleaned_data['name'],
                               passport_num=form.cleaned_data['passport_num'],
                               agreement_num=form.cleaned_data['agreement_num'],
+                              quantity=form.cleaned_data['quantity'],
                              )
         self.success_url = reverse_lazy('show_agreement', kwargs={'pk_agreement':new_client.pk})
 
         return super().form_valid(form)
-
-def generate_qr(request, pk_agreement):
-    new_client = get_object_or_404(Client,pk=pk_agreement)
-
-    img = qrcode.make(f'Agreement number: {new_client.agreement_num}, Agreement date: {new_client.agreement_date}')
-    buffer = io.BytesIO()
-    img.save(buffer, format="png")
-    return HttpResponse(buffer.getvalue(), content_type = 'image/png')
          
+def get_rate_USD():
+    url = 'https://api.currencyfreaks.com/v2.0/rates/latest?apikey=1cebcc463e9a4760bc348fdcb09e8789'
+
+    try:
+        # Получаем содержимое страницы
+        response = requests.get(url)
+        response.raise_for_status()
+
+        # Парсинг содержимого страницы с помощью надстройки json
+        rates = json.loads(response.content)
+        USD_rate = float(rates["rates"]["RUB"])
+
+    except requests.exceptions.RequestException as e:
+        print(f'Ошибка при запросе: {e}')
+    return USD_rate
+
 def show_agreement(request, pk_agreement):
+
+    new_client = get_object_or_404(Client,pk=pk_agreement)
+    price_RUB = 100
+    price_USD = round(price_RUB/ get_rate_USD(),4)
+
     context = {
         'title': 'Agreement preview',
-        'new_client': get_object_or_404(Client,pk=pk_agreement) 
+        'new_client': new_client,
+        'price_RUB': price_RUB,
+        'amount_RUB': price_RUB * new_client.quantity,
+        'price_USD': price_USD, 
+        'amount_USD': round(price_USD * new_client.quantity,4),
     }
     return render(request, 'add_agreement/show_agreement.html', context)
 
@@ -221,9 +243,16 @@ def pdf_agreement(request, pk_agreement):
     template_path = 'add_agreement/pdf_agreement.html'
     
     new_client = get_object_or_404(Client,pk=pk_agreement)
+    price_RUB = 100
+    price_USD = round(price_RUB/ get_rate_USD(),4)
+
     context = {
         'title': 'Agreement',
-        'new_client': new_client 
+        'new_client': new_client,
+        'price_RUB': price_RUB,
+        'amount_RUB': price_RUB * new_client.quantity,
+        'price_USD': price_USD, 
+        'amount_USD': round(price_USD * new_client.quantity,4),
     }
 
     # Create a Django response object, setting the PDF as the content type
@@ -245,3 +274,11 @@ def pdf_agreement(request, pk_agreement):
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
+def generate_qr(request, pk_agreement):
+    new_client = get_object_or_404(Client,pk=pk_agreement)
+
+    img = qrcode.make(f'Agreement number: {new_client.agreement_num}, Agreement date: {new_client.agreement_date}')
+    buffer = io.BytesIO()
+    img.save(buffer, format="png")
+    return HttpResponse(buffer.getvalue(), content_type = 'image/png')
