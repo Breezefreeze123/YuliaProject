@@ -28,6 +28,10 @@ import qrcode
 import requests
 import json
 
+# Импорт для отправки емейл
+from django.core.mail import EmailMultiAlternatives, send_mail, EmailMessage
+from django.template.loader import render_to_string
+
 class Home(TemplateView):
     template_name = 'home.html'
     extra_context = {
@@ -202,6 +206,7 @@ class AddAgreement(FormView):
                               passport_num=form.cleaned_data['passport_num'],
                               agreement_num=form.cleaned_data['agreement_num'],
                               quantity=form.cleaned_data['quantity'],
+                              email=form.cleaned_data['email'],
                              )
         self.success_url = reverse_lazy('show_agreement', kwargs={'pk_agreement':new_client.pk})
 
@@ -266,6 +271,7 @@ def pdf_agreement(request, pk_agreement):
     # html_source = "<html><body><p>To PDF or not to PDF</p></body></html>"
 
     # Convert HTML to PDF
+    buffer = io.BytesIO()
     pisa_status = pisa.CreatePDF(
         html,                # the HTML to convert
         dest=response)       # file handle to receive result
@@ -282,3 +288,31 @@ def generate_qr(request, pk_agreement):
     buffer = io.BytesIO()
     img.save(buffer, format="png")
     return HttpResponse(buffer.getvalue(), content_type = 'image/png')
+
+def generate_email_test(request):
+    send_mail(
+        "Yulia Agreement",
+        "Here is the message.",
+        "loskutova.yulia@gmail.com",
+        ["loskutova.yulia@gmail.com"],
+        fail_silently=False,
+    )
+    return HttpResponse('Email sent!')
+
+def generate_email(request, pk_agreement):
+    new_client = get_object_or_404(Client,pk=pk_agreement)
+
+    email = EmailMessage(
+        subject = f"Agreement № {new_client.agreement_num}",
+        body = f"Hello, {new_client.name}, your agreement № {new_client.agreement_num} is enclosed.",
+        from_email = "loskutova.yulia@gmail.com",
+        to = ["loskutova.yulia@gmail.com"],
+    )
+    email.send()
+
+    context = {
+        'title': 'Email successfully sent',
+        'new_client': new_client,
+    }
+
+    return render(request, 'add_agreement/return.html', context)

@@ -31,6 +31,7 @@ class AddClientForm(forms.Form):
     passport_num = forms.IntegerField(label='Паспорт, номер: ')
     agreement_num = forms.CharField(label='Номер договора: ')
     quantity = forms.FloatField(label='Количество, кг: ')
+    email = forms.EmailField(label='Электронная почта: ')
 
     # class Meta:
     #     model = Client

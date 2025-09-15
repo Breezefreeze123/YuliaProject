@@ -5,6 +5,7 @@
 <p> </p>
 <p> Client name: {{ new_client.name }}</p>
 <p> Passport number: {{ new_client.passport_num }}</p>
+<p> Email: {{ new_client.email }}</p>
 <p> </p>
 <p> Amount in RUB: {{ amount_RUB }} = {{ new_client.quantity }} kg * {{ price_RUB }} RUB/kg</p>
 <p> Amount in USD: {{ amount_USD }} = {{ new_client.quantity }} kg * {{ price_USD }} USD/kg</p>
@@ -13,3 +14,5 @@
 <p> </p>
 
 <a href='http://127.0.0.1:8000/pdf_agreement/{{new_client.pk}}'>Create Pdf</a>
+
+<a href='http://127.0.0.1:8000/generate_email/{{new_client.pk}}'>Send Pdf to email</a>

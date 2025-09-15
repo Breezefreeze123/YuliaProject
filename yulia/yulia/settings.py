@@ -138,3 +138,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'menu'
 LOGOUT_REDIRECT_URL = 'menu'
 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "loskutova.yulia@gmail.com"
+EMAIL_HOST_PASSWORD = "gkzw hojt ilfs oyjk"
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
