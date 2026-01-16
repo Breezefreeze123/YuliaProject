@@ -1,0 +1,1 @@
+[{"model": "yulia_app_1.category", "pk": 1, "fields": {"title": "Food", "slug": "Food"}}, {"model": "yulia_app_1.category", "pk": 2, "fields": {"title": "Drinks", "slug": "Drinks"}}, {"model": "yulia_app_1.category", "pk": 3, "fields": {"title": "Deserts", "slug": "Deserts"}}, {"model": "yulia_app_1.category", "pk": 4, "fields": {"title": "For children", "slug": "For_children"}}]

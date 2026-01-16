@@ -244,7 +244,43 @@ def show_agreement(request, pk_agreement):
     }
     return render(request, 'add_agreement/show_agreement.html', context)
 
-def pdf_agreement(request, pk_agreement):
+def pdf_agreement_buffer(title, new_client, price_RUB, amount_RUB, price_USD, amount_USD):
+    buffer = io.BytesIO()
+    template_path = 'add_agreement/pdf_agreement.html'
+
+    context = {
+        'title': title,
+        'new_client': new_client,
+        'price_RUB': price_RUB,
+        'amount_RUB': amount_RUB,
+        'price_USD': price_USD, 
+        'amount_USD': amount_USD,
+    }    
+
+    template = get_template(template_path)
+    html = template.render(context)
+
+    pisa.CreatePDF(
+        html,           # page data
+        dest=buffer,    # destination "file"
+    )
+
+    return buffer.getbuffer()
+
+def pdf_agreement_request(request, pk_agreement):
+
+    title = 'Agreement'
+    new_client = get_object_or_404(Client,pk=pk_agreement)
+    price_RUB = 100
+    amount_RUB = price_RUB * new_client.quantity
+    price_USD = round(price_RUB/ get_rate_USD(),4)
+    amount_USD = round(price_USD * new_client.quantity,4)
+    
+    buffer = pdf_agreement_buffer(title, new_client, price_RUB, amount_RUB, price_USD, amount_USD)
+
+    return HttpResponse(buffer, content_type = 'application/pdf')
+
+def pdf_agreement_request_old(request, pk_agreement):
     template_path = 'add_agreement/pdf_agreement.html'
     
     new_client = get_object_or_404(Client,pk=pk_agreement)
@@ -271,7 +307,6 @@ def pdf_agreement(request, pk_agreement):
     # html_source = "<html><body><p>To PDF or not to PDF</p></body></html>"
 
     # Convert HTML to PDF
-    buffer = io.BytesIO()
     pisa_status = pisa.CreatePDF(
         html,                # the HTML to convert
         dest=response)       # file handle to receive result
@@ -308,6 +343,17 @@ def generate_email(request, pk_agreement):
         from_email = "loskutova.yulia@gmail.com",
         to = ["loskutova.yulia@gmail.com"],
     )
+
+    title = 'Agreement'
+    new_client = get_object_or_404(Client,pk=pk_agreement)
+    price_RUB = 100
+    amount_RUB = price_RUB * new_client.quantity
+    price_USD = round(price_RUB/ get_rate_USD(),4)
+    amount_USD = round(price_USD * new_client.quantity,4)
+    
+    new_pdf = pdf_agreement_buffer(title, new_client, price_RUB, amount_RUB, price_USD, amount_USD)
+    email.attach(f"Agreement № {new_client.agreement_num}.pdf", new_pdf, "application/pdf")
+    
     email.send()
 
     context = {
