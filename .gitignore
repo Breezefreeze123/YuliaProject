@@ -6,3 +6,4 @@
 /yuliavenv/Scripts/python.exe
 /yuliavenv/Scripts/pythonw.exe
 /yuliavenv/Scripts/sqlformat.exe
+**__pycache__**
