@@ -497,6 +497,12 @@ HAVING COUNT [БД1.id]>0
     pip freeze > requirements.txt
     - Комитим только этот файл. Остальные файлы добавляем в Git ignore
 
+Как установить requirements.txt в новый venv:
+1. Зайти в новый venv
+2. Откройте терминал (командную строку, PowerShell или терминал в VS Code)
+3. Перейдите в папку, где лежит текстовый файл requirements.txt: cd /path/to/folder
+4. Выполните команду: pip install -r requirements.txt
+
 ----------------------------------------------------------------------------------------
 Курсы валют
 Сайт currencyfreaks.com
