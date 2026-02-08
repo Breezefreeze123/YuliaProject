@@ -1,0 +1,1283 @@
+[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2024-12-17T14:14:07.105Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "5",
+    "object_repr": "Strawberry cheesecake",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2024-12-17T14:15:04.870Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "5",
+    "object_repr": "Strawberry cheesecake",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is published\", \"Tag\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2024-12-17T14:34:18.348Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "5",
+    "object_repr": "Strawberry cheesecake",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Slug\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2025-05-27T17:30:14.433Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "6",
+    "object_repr": "Happy meal",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is published\", \"Photo\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2025-05-27T17:32:15.319Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "6",
+    "object_repr": "Happy meal",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is published\"]}}]"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 2,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 2,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 2,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 2,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 3,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 3,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 3,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 3,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add user",
+    "content_type": 4,
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change user",
+    "content_type": 4,
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete user",
+    "content_type": 4,
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view user",
+    "content_type": 4,
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 5,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 5,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 5,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 5,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 6,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 6,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 6,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 6,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add coffee",
+    "content_type": 7,
+    "codename": "add_coffee"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change coffee",
+    "content_type": 7,
+    "codename": "change_coffee"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete coffee",
+    "content_type": 7,
+    "codename": "delete_coffee"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view coffee",
+    "content_type": 7,
+    "codename": "view_coffee"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add category",
+    "content_type": 8,
+    "codename": "add_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change category",
+    "content_type": 8,
+    "codename": "change_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete category",
+    "content_type": 8,
+    "codename": "delete_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view category",
+    "content_type": 8,
+    "codename": "view_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add tag table",
+    "content_type": 9,
+    "codename": "add_tagtable"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change tag table",
+    "content_type": 9,
+    "codename": "change_tagtable"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete tag table",
+    "content_type": 9,
+    "codename": "delete_tagtable"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view tag table",
+    "content_type": 9,
+    "codename": "view_tagtable"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 37,
+  "fields": {
+    "name": "Can add gost",
+    "content_type": 10,
+    "codename": "add_gost"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 38,
+  "fields": {
+    "name": "Can change gost",
+    "content_type": 10,
+    "codename": "change_gost"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 39,
+  "fields": {
+    "name": "Can delete gost",
+    "content_type": 10,
+    "codename": "delete_gost"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 40,
+  "fields": {
+    "name": "Can view gost",
+    "content_type": 10,
+    "codename": "view_gost"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 41,
+  "fields": {
+    "name": "Can add upload files",
+    "content_type": 11,
+    "codename": "add_uploadfiles"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 42,
+  "fields": {
+    "name": "Can change upload files",
+    "content_type": 11,
+    "codename": "change_uploadfiles"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 43,
+  "fields": {
+    "name": "Can delete upload files",
+    "content_type": 11,
+    "codename": "delete_uploadfiles"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 44,
+  "fields": {
+    "name": "Can view upload files",
+    "content_type": 11,
+    "codename": "view_uploadfiles"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 45,
+  "fields": {
+    "name": "Can add Реквизиты клиентов",
+    "content_type": 12,
+    "codename": "add_client"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 46,
+  "fields": {
+    "name": "Can change Реквизиты клиентов",
+    "content_type": 12,
+    "codename": "change_client"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 47,
+  "fields": {
+    "name": "Can delete Реквизиты клиентов",
+    "content_type": 12,
+    "codename": "delete_client"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 48,
+  "fields": {
+    "name": "Can view Реквизиты клиентов",
+    "content_type": 12,
+    "codename": "view_client"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$2s8spQZBhlvjCCW3q2fD7A$tLeGRy0jqPvliHxsyMrrOSFoiVvXHaiyQkYNLDpAU00=",
+    "last_login": "2025-08-14T18:09:31.191Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2024-12-17T09:28:22.203Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "auth",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "yulia_app_1",
+    "model": "coffee"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "yulia_app_1",
+    "model": "category"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "yulia_app_1",
+    "model": "tagtable"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 10,
+  "fields": {
+    "app_label": "yulia_app_1",
+    "model": "gost"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 11,
+  "fields": {
+    "app_label": "yulia_app_1",
+    "model": "uploadfiles"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 12,
+  "fields": {
+    "app_label": "yulia_app_1",
+    "model": "client"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "7gdc40p4xcgcmya1yti1xztne8c18v6q",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hDo0DJ16d4zkJkBpGpoUtqV8e7apAvd_vfef6lA21rC1tISpqjOyqrT78Ykj1R3EO9Ub7OWua7LxHpX9EGbvs4xPS-H-3dQqJVvTc4IIIJEL1HIInd2YMyDQIcZLKCnUUQcjR6MTdlzItf3xjoWTKLeH_A7OFg:1uaCv1:nJHGQKS23voU7rXIq77-UmEUsBgE22cvB9Z03ZyoY5A",
+    "expire_date": "2025-07-25T12:31:59.831Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "afp1zyal7jx836glm0d6qqbczsjrz683",
+  "fields": {
+    "session_data": ".eJxVjDsOwyAQRO9CHSGD-aZM7zOgXViCkwhLxq6i3D1YcpEU08x7M28WYN9K2ButYU7sygS7_HYI8Un1AOkB9b7wuNRtnZEfCj9p49OS6HU73b-DAq30NUYcerQCxDzqhNmSi9o7EkidWW-1BOXNKDNIbVQiYwZHUijvhdDs8wUcMzgz:1tNTsW:Z0jzw5DcYegrxlQy9v_qu0N-MjMBbrmHsKUP8yG89Fc",
+    "expire_date": "2024-12-31T09:28:32.825Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "g7674ewg54vouhuf9vma2kg19i85er3h",
+  "fields": {
+    "session_data": ".eJxVjE0OwiAYBe_C2hA-CgFcuvcM5PEnVQNJaVfGu2uTLnT7Zua9mMe2Vr-NvPg5sTMjdvrdAuIjtx2kO9qt89jbusyB7wo_6ODXnvLzcrh_BxWjfmvEJAmkYqGpAJMqJEjlkpxFALLU2jpjjZUUM4yFEMZGF5QORUid2PsDAE44UA:1umcOJ:7T9GrJtw5VNplUf9ragMXP4gQ9yQ0GGLPgB4tA_PwmE",
+    "expire_date": "2025-08-28T18:09:31.236Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ycb54kcbdcaygyyr31fgz45e9bezfxnt",
+  "fields": {
+    "session_data": ".eJxVjDsOwyAQRO9CHSGD-aZM7zOgXViCkwhLxq6i3D1YcpEU08x7M28WYN9K2ButYU7sygS7_HYI8Un1AOkB9b7wuNRtnZEfCj9p49OS6HU73b-DAq30NUYcerQCxDzqhNmSi9o7EkidWW-1BOXNKDNIbVQiYwZHUijvhdDs8wUcMzgz:1uGyjV:Qz7VwtklZo3vzwan9017o31AiENkQ84RXGgfIxchpr0",
+    "expire_date": "2025-06-02T11:32:37.371Z"
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 1,
+  "fields": {
+    "title": "Club sandwich",
+    "slug": "Club_sandwich1",
+    "content": "Клаб-сэндвич (англ. club sandwich, clubhouse sandwich) — бутерброд из хлеба (обычно поджаренного), с нарезанным приготовленным мясом птицы, ветчиной или жареным беконом, листьями салата, помидорами и майонезом[1][2][3]. Сэндвич часто разрезают на четвертинки или половинки и скрепляют вместе с помощью коктейльных палочек. Современные версии часто состоят из двух слоев, разделенных дополнительным ломтиком хлеба.",
+    "time_create": "2024-12-10T12:20:42.932Z",
+    "time_update": "2025-06-07T16:41:34.575Z",
+    "is_published": true,
+    "cat": 1,
+    "gost": null,
+    "photo": "",
+    "tag": [
+      1,
+      4
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 2,
+  "fields": {
+    "title": "Cappuchino",
+    "slug": "Cappuchino2",
+    "content": "Капучи́но[1] (от итал. cappuccino — «капуцин») — кофейный напиток итальянской кухни на основе эспрессо с добавлением в него подогретого до 65 градусов вспененного молока.",
+    "time_create": "2024-12-10T12:22:17.465Z",
+    "time_update": "2024-12-10T14:27:46.342Z",
+    "is_published": true,
+    "cat": 2,
+    "gost": null,
+    "photo": "",
+    "tag": [
+      1,
+      3
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 3,
+  "fields": {
+    "title": "Tiramisu",
+    "slug": "Tiramisu3",
+    "content": "Тирамису́ (итал. tiramisù, «вознеси меня» от гл. tira — тяни, mi — меня, su — вверх) — итальянский многослойный десерт, в состав которого входят сыр маскарпоне, кофе (обычно эспрессо), куриные яйца, сахар и печенье савоярди. Как правило, десерт припудривают какао-порошком[1]. Возможна вариация с добавлением грецкого ореха.\n\nЕсть необычные адаптации рецепта, согласно которым какао-порошок заменяют тёртым шоколадом, савоярди — бисквитом, кофейную пропитку — фруктовой или алкогольной (обычно это марсала, мадера, амаретто), а в некоторых вариациях тирамису может напоминать пудинг или кекс.",
+    "time_create": "2024-12-10T12:23:38.032Z",
+    "time_update": "2024-12-14T15:54:59.425Z",
+    "is_published": true,
+    "cat": 3,
+    "gost": 1,
+    "photo": "",
+    "tag": [
+      2,
+      3
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 4,
+  "fields": {
+    "title": "Apple fresh",
+    "slug": "Apple_fresh4",
+    "content": "Яблочный сок — сок, выжатый из яблок. Сладкий вкус обусловлен содержанием в яблоках натурального сахара.",
+    "time_create": "2024-12-10T13:51:27.109Z",
+    "time_update": "2024-12-10T14:27:46.405Z",
+    "is_published": false,
+    "cat": 2,
+    "gost": null,
+    "photo": "",
+    "tag": [
+      2,
+      3
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 5,
+  "fields": {
+    "title": "Strawberry cheesecake",
+    "slug": "Strawberry-cheesecake",
+    "content": "Very delicious",
+    "time_create": "2024-12-17T14:14:07.103Z",
+    "time_update": "2024-12-17T14:34:18.345Z",
+    "is_published": true,
+    "cat": 3,
+    "gost": null,
+    "photo": "",
+    "tag": [
+      2,
+      3
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 6,
+  "fields": {
+    "title": "Happy meal",
+    "slug": "Happy-meal",
+    "content": "Enjoy a Hamburger meal that your kiddies are sure to love!",
+    "time_create": "2024-12-20T16:27:22.835Z",
+    "time_update": "2025-05-27T17:32:15.314Z",
+    "is_published": true,
+    "cat": 4,
+    "gost": 3,
+    "photo": "photos/2025/05/27/Happy_meal.png",
+    "tag": [
+      1,
+      3
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 7,
+  "fields": {
+    "title": "Coffee",
+    "slug": "Coffee",
+    "content": "Tasty",
+    "time_create": "2025-05-22T15:31:05.405Z",
+    "time_update": "2025-05-22T15:31:05.434Z",
+    "is_published": true,
+    "cat": 2,
+    "gost": 10,
+    "photo": "photos/2025/05/22/Coffee_FKTLRy4.jpg",
+    "tag": [
+      1
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 8,
+  "fields": {
+    "title": "34543",
+    "slug": "dfdfgdfgdfg",
+    "content": "dfddf",
+    "time_create": "2025-06-01T12:40:57.240Z",
+    "time_update": "2025-06-01T12:40:57.279Z",
+    "is_published": true,
+    "cat": 1,
+    "gost": 11,
+    "photo": "photos/2025/06/01/Coffee.jpg",
+    "tag": [
+      2,
+      4
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 9,
+  "fields": {
+    "title": "ergerg",
+    "slug": "erereer",
+    "content": "erger",
+    "time_create": "2025-06-01T12:42:01.773Z",
+    "time_update": "2025-06-01T12:42:01.803Z",
+    "is_published": true,
+    "cat": 1,
+    "gost": 12,
+    "photo": "photos/2025/06/01/Happy_meal.png",
+    "tag": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 10,
+  "fields": {
+    "title": "dsdgs",
+    "slug": "sgsdg",
+    "content": "sdffsdf",
+    "time_create": "2025-06-06T12:28:19.086Z",
+    "time_update": "2025-06-06T12:28:19.129Z",
+    "is_published": true,
+    "cat": 4,
+    "gost": 13,
+    "photo": "photos/2025/06/06/Coffee.jpg",
+    "tag": [
+      1
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 11,
+  "fields": {
+    "title": "ggggg",
+    "slug": "gggg",
+    "content": "gggg",
+    "time_create": "2025-06-06T12:32:42.662Z",
+    "time_update": "2025-06-06T12:32:42.662Z",
+    "is_published": true,
+    "cat": 1,
+    "gost": null,
+    "photo": "photos/2025/06/06/Coffee_XRhRiCH.jpg",
+    "tag": [
+      3
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 12,
+  "fields": {
+    "title": "eeeeee",
+    "slug": "eeeeee",
+    "content": "eeeeee",
+    "time_create": "2025-06-06T12:36:51.956Z",
+    "time_update": "2025-06-06T12:36:51.956Z",
+    "is_published": true,
+    "cat": 3,
+    "gost": null,
+    "photo": "photos/2025/06/06/Coffee_KyAhtgy.jpg",
+    "tag": [
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 13,
+  "fields": {
+    "title": "ooooooo",
+    "slug": "ooooooo",
+    "content": "ooooooo",
+    "time_create": "2025-06-06T13:30:43.077Z",
+    "time_update": "2025-06-06T13:30:43.113Z",
+    "is_published": true,
+    "cat": 2,
+    "gost": 14,
+    "photo": "photos/2025/06/06/Coffee_sdJJsLE.jpg",
+    "tag": [
+      2,
+      3,
+      4
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 15,
+  "fields": {
+    "title": "kkkkkkk",
+    "slug": "kkkkkkk",
+    "content": "kkkkkkk",
+    "time_create": "2025-06-06T14:03:32.014Z",
+    "time_update": "2025-06-06T14:03:32.014Z",
+    "is_published": true,
+    "cat": 3,
+    "gost": null,
+    "photo": "photos/2025/06/06/Happy_meal_RVXhX8G.png",
+    "tag": [
+      1,
+      2,
+      3
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 16,
+  "fields": {
+    "title": "jjjjjjjjjjjjjjjjj",
+    "slug": "jjjjjjjjjjjjjjjjj",
+    "content": "jjjjjjjjjjjjjjjjj",
+    "time_create": "2025-06-06T14:06:14.007Z",
+    "time_update": "2025-06-06T14:06:14.007Z",
+    "is_published": true,
+    "cat": 1,
+    "gost": null,
+    "photo": "photos/2025/06/06/Coffee_xaIdnOc.jpg",
+    "tag": [
+      1,
+      4
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.coffee",
+  "pk": 17,
+  "fields": {
+    "title": "123",
+    "slug": "213",
+    "content": "123",
+    "time_create": "2025-08-19T11:58:10.250Z",
+    "time_update": "2025-08-19T11:58:10.279Z",
+    "is_published": true,
+    "cat": 1,
+    "gost": 16,
+    "photo": "",
+    "tag": [
+      3,
+      4
+    ]
+  }
+},
+{
+  "model": "yulia_app_1.category",
+  "pk": 1,
+  "fields": {
+    "title": "Food",
+    "slug": "Food"
+  }
+},
+{
+  "model": "yulia_app_1.category",
+  "pk": 2,
+  "fields": {
+    "title": "Drinks",
+    "slug": "Drinks"
+  }
+},
+{
+  "model": "yulia_app_1.category",
+  "pk": 3,
+  "fields": {
+    "title": "Deserts",
+    "slug": "Deserts"
+  }
+},
+{
+  "model": "yulia_app_1.category",
+  "pk": 4,
+  "fields": {
+    "title": "For children",
+    "slug": "For_children"
+  }
+},
+{
+  "model": "yulia_app_1.tagtable",
+  "pk": 1,
+  "fields": {
+    "tag": "Горячее",
+    "slug": "hot"
+  }
+},
+{
+  "model": "yulia_app_1.tagtable",
+  "pk": 2,
+  "fields": {
+    "tag": "Холодное",
+    "slug": "cold"
+  }
+},
+{
+  "model": "yulia_app_1.tagtable",
+  "pk": 3,
+  "fields": {
+    "tag": "Сладкое",
+    "slug": "sweet"
+  }
+},
+{
+  "model": "yulia_app_1.tagtable",
+  "pk": 4,
+  "fields": {
+    "tag": "Соленое",
+    "slug": "salty"
+  }
+},
+{
+  "model": "yulia_app_1.tagtable",
+  "pk": 5,
+  "fields": {
+    "tag": "Кислое",
+    "slug": "sour"
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 1,
+  "fields": {
+    "gost_product": "Tiramisu",
+    "gost_number": 123
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 2,
+  "fields": {
+    "gost_product": "Club sandwich",
+    "gost_number": 456
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 3,
+  "fields": {
+    "gost_product": "Happy meal",
+    "gost_number": 1234567
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 4,
+  "fields": {
+    "gost_product": "Cup of coffee",
+    "gost_number": 5154545
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 5,
+  "fields": {
+    "gost_product": "Cup of coffee2",
+    "gost_number": 5154545
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 6,
+  "fields": {
+    "gost_product": "Cup of coffee4",
+    "gost_number": 721215
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 7,
+  "fields": {
+    "gost_product": "Cup of coffee4",
+    "gost_number": 72121
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 8,
+  "fields": {
+    "gost_product": "Coffee",
+    "gost_number": 7212
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 9,
+  "fields": {
+    "gost_product": "Coffee",
+    "gost_number": 7212
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 10,
+  "fields": {
+    "gost_product": "Coffee",
+    "gost_number": 123456
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 11,
+  "fields": {
+    "gost_product": "34543",
+    "gost_number": 143
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 12,
+  "fields": {
+    "gost_product": "ergerg",
+    "gost_number": 345345
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 13,
+  "fields": {
+    "gost_product": "dsdgs",
+    "gost_number": 345
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 14,
+  "fields": {
+    "gost_product": "ooooooo",
+    "gost_number": 234234
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 15,
+  "fields": {
+    "gost_product": "sssssssss",
+    "gost_number": 24235
+  }
+},
+{
+  "model": "yulia_app_1.gost",
+  "pk": 16,
+  "fields": {
+    "gost_product": "123",
+    "gost_number": 55555555
+  }
+},
+{
+  "model": "yulia_app_1.uploadfiles",
+  "pk": 1,
+  "fields": {
+    "upload": "uploads_model/Coffee.jpg"
+  }
+},
+{
+  "model": "yulia_app_1.uploadfiles",
+  "pk": 2,
+  "fields": {
+    "upload": "uploads_model/Coffee_n64tgCE.jpg"
+  }
+},
+{
+  "model": "yulia_app_1.uploadfiles",
+  "pk": 3,
+  "fields": {
+    "upload": "uploads_model/Coffee_Kme2gKl.jpg"
+  }
+},
+{
+  "model": "yulia_app_1.uploadfiles",
+  "pk": 4,
+  "fields": {
+    "upload": "uploads_model/Coffee_x8qrn4B.jpg"
+  }
+},
+{
+  "model": "yulia_app_1.uploadfiles",
+  "pk": 5,
+  "fields": {
+    "upload": "uploads_model/Coffee.jpg"
+  }
+},
+{
+  "model": "yulia_app_1.uploadfiles",
+  "pk": 6,
+  "fields": {
+    "upload": "uploads_model/Coffee_rkeIl31.jpg"
+  }
+},
+{
+  "model": "yulia_app_1.uploadfiles",
+  "pk": 7,
+  "fields": {
+    "upload": "uploads_model/Coffee_yPRhUfJ.jpg"
+  }
+},
+{
+  "model": "yulia_app_1.uploadfiles",
+  "pk": 8,
+  "fields": {
+    "upload": "uploads_model/Coffee_eliaNxa.jpg"
+  }
+},
+{
+  "model": "yulia_app_1.uploadfiles",
+  "pk": 9,
+  "fields": {
+    "upload": "uploads_model/Coffee_DTa2kQB.jpg"
+  }
+},
+{
+  "model": "yulia_app_1.uploadfiles",
+  "pk": 10,
+  "fields": {
+    "upload": "uploads_model/Happy_meal.png"
+  }
+},
+{
+  "model": "yulia_app_1.uploadfiles",
+  "pk": 11,
+  "fields": {
+    "upload": "uploads_model/Happy_meal_BjuTgcP.png"
+  }
+},
+{
+  "model": "yulia_app_1.client",
+  "pk": 1,
+  "fields": {
+    "name": "Yulia",
+    "passport_num": 12345,
+    "agreement_num": "12345_Yulia",
+    "time_create": "2025-08-25T07:43:14.570Z",
+    "time_update": "2025-08-25T07:43:14.570Z",
+    "agreement_date": "2025-08-25",
+    "quantity": 1.0,
+    "email": "loskutova.yulia@gmail.com"
+  }
+},
+{
+  "model": "yulia_app_1.client",
+  "pk": 2,
+  "fields": {
+    "name": "123",
+    "passport_num": 555666,
+    "agreement_num": "qwerty123",
+    "time_create": "2025-08-26T15:21:32.495Z",
+    "time_update": "2025-08-26T15:21:32.495Z",
+    "agreement_date": "2025-08-26",
+    "quantity": 1.0,
+    "email": "loskutova.yulia@gmail.com"
+  }
+},
+{
+  "model": "yulia_app_1.client",
+  "pk": 3,
+  "fields": {
+    "name": "qwerty",
+    "passport_num": 77777,
+    "agreement_num": "jjghgjh",
+    "time_create": "2025-08-27T07:16:36.519Z",
+    "time_update": "2025-08-27T07:16:36.519Z",
+    "agreement_date": "2025-08-27",
+    "quantity": 500.0,
+    "email": "loskutova.yulia@gmail.com"
+  }
+},
+{
+  "model": "yulia_app_1.client",
+  "pk": 4,
+  "fields": {
+    "name": "ggg",
+    "passport_num": 132534647,
+    "agreement_num": "14324353",
+    "time_create": "2025-08-29T14:37:49.558Z",
+    "time_update": "2025-08-29T14:37:49.558Z",
+    "agreement_date": "2025-08-29",
+    "quantity": 40.0,
+    "email": "loskutova.yulia@gmail.com"
+  }
+}
+]
