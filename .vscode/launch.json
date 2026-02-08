@@ -13,8 +13,8 @@
             ],
             "django": true,
             "autoStartBrowser": false,
-            "program": "${workspaceFolder}\\yulia\\manage.py",
-            "python": "python.exe",
+            "program": "${workspaceFolder}/yulia/manage.py",
+            "python": ".venv/Scripts/python",
         }
   
     ]
