@@ -2,7 +2,60 @@
 
 {% block content %}
 
-<h1>{{ title }}</h1>
+<!--<h1>{{ title }}</h1>-->
+
+<div>
+    <form name="myForm" action="/action_page.php" method="post">
+        {% csrf_token %}
+        Name: <input type="text" name="fname">
+        <input type="submit" value="Submit">
+    </form>
+    <p id="formDescription"></p>
+</div>
+
+<hr>
+</div>
+    <h1> Counter: </h1>
+    <p id="counterInt"></p>
+    <p id="counterText"></p>
+    <button id="plusBtn">+</button>
+    <button id="minusBtn">-</button>
+    <button id="resetBtn">Reset</button>
+    <button id="saveBtn">Save</button>
+    <button id="loadBtn">Load</button>
+<div>
+
+<hr>
+</div>
+    <h1> ToDo list: </h1>
+    <input type="text" id="taskInputText">
+    <button id="addTaskBtn">Add</button>
+    <button id="loadTaskBtn">Load</button>
+    <button id="clearAllBtn">Clear All</button>
+    <p id="taskDecription"></p>
+    <ul id="toDoList"></ul>
+
+    <input type="checkbox" id="toDoCheck" name="toDoCheck" value="done"/>
+    <label for="toDoCheck">Done</label>
+<div>
+
+<hr>
+<div class="header">
+    <h1 id="main-heading">Contacts list:</h1>
+        <ul>
+            <li id="point1">Contact 1</li>
+            <li id="point2">Contact 2</li>
+            <li id="point3">Contact 3</li>
+            <li id="point4" class="header">Contact 4</li>
+            <li id="point5">Contact 5</li>
+        </ul>
+
+    <button id="firstButton">Smth will happen</button>
+    <!-- <button onclick="elemID()">getElementByID</button> -->
+
+
+</div>
+
 
 {% endblock %}
 

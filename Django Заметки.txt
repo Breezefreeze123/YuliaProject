@@ -529,10 +529,31 @@ GET https://api.currencyfreaks.com/v2.0/rates/latest?apikey=1cebcc463e9a4760bc34
 +
 Написать тест, который вызывает эту первую функцию, получает буфер и просто сохраняет на диск (что она работает).
 
+----------------------------------------------------------------------------------------
+Комментарий в Visual Studio Code:
+ctrl + k + c (закомментировать)
+ctrl + k + u (раскомментировать)
+----------------------------------------------------------------------------------------
 
+Javascript DOM
 
+Выбор элементов на HTML странице:
+document.getElementById('main-heading')
+document.getElementsByClassName('header')
+document.getElementsByTagName('li')
+document.querySelector('div') - The querySelector() method returns the first element that matches a CSS selector
+document.querySelectorAll('div') - The querySelectorAll() method returns all elements that matches a CSS selector(s)
 
+Changing HTML Content
+The HTML DOM allows JavaScript to change both the text and the content of HTML elements.
+The easiest way to modify the content is by using the innerHTML property:
+document.getElementById(id).innerHTML = new HTML
 
+Changing an Attribute
+To change the value of an HTML attribute, use this syntax:
+document.getElementById(id).attribute = new value
 
-
-
+Changing HTML Style
+The HTML DOM allows JavaScript to change the style of HTML elements.
+To change the style of an HTML element, use this syntax:
+document.getElementById(id).style.property= new style
