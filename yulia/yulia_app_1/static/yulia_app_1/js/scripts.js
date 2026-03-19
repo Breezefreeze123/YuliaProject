@@ -101,9 +101,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const clearAllBtn=document.getElementById("clearAllBtn");
     const taskDecription=document.getElementById("taskDecription");
     const toDoList=document.getElementById("toDoList");
+    let toDoListButtons = toDoList.getElementsByTagName("button");
+    const updateBtn=document.getElementById("updateBtn");
+
+    if (JSON.parse(localStorage.getItem('taskObj'))===null){
+        const taskObj={};
+        localStorage.setItem('taskObj', JSON.stringify(taskObj));
+    } else {
+        const taskObj=JSON.parse(localStorage.getItem('taskObj'));
+    }
+
     displayTask();
 
-    function displayTask(){
+    addTaskBtn.addEventListener('click', addTask); 
+    loadTaskBtn.addEventListener('click',loadTask);
+    clearAllBtn.addEventListener('click', clearAllTask);
+    taskInputText.addEventListener('keydown', inputToDo);
+    // updateBtn.addEventListener('click', toDoCheckBox);
+    for (let i = 0; i < toDoListButtons.length; i++){
+        toDoListButtons[i].addEventListener('click', toDoButtons);
+    }
+
+    function displayTask_old(){
         let taskArray = JSON.parse(localStorage.getItem('taskArray'));
         toDoList.innerHTML="";
         
@@ -114,7 +133,89 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function addTask(){
+    function displayTask(){
+        const taskObj=JSON.parse(localStorage.getItem('taskObj'));
+        let objArray = Object.keys(taskObj);
+        toDoList.innerHTML="";
+
+        for (let i = 0; i < objArray.length; i++){
+            const bullet = document.createElement("li");
+            bullet.innerText = taskObj[objArray[i]];
+            toDoList.appendChild(bullet);
+
+            const btnDone = document.createElement("button");
+            let textDone = document.createTextNode("Done");
+            btnDone.id = 'btnDone-'+i;
+            btnDone.appendChild(textDone);
+            toDoList.appendChild(btnDone);
+
+            const btnNotDone = document.createElement("button");
+            let textNotDone = document.createTextNode("Not done");
+            btnNotDone.id = 'btnNotDone-'+i;
+            btnNotDone.appendChild(textNotDone);
+            toDoList.appendChild(btnNotDone);
+
+            const btnEdit = document.createElement("button");
+            let textEdit = document.createTextNode("Edit");
+            btnEdit.id = 'btnEdit-'+i;
+            btnEdit.appendChild(textEdit);
+            toDoList.appendChild(btnEdit);
+
+            // const checkbox = document.createElement("input");
+            // checkbox.type='checkbox';
+            // checkbox.id = 'cb'+i;
+            // toDoList.appendChild(checkbox);
+
+            // const label = document.createElement('label');
+            // label.htmlFor = 'toDoCheckbox';
+            // label.appendChild(document.createTextNode('Done?'));
+            
+            // checkBox.label = taskObj[objArray[i]];
+            
+        }
+    }
+
+    function toDoCheckBox(){
+        const taskObj=JSON.parse(localStorage.getItem('taskObj'));
+        let objArray = Object.keys(taskObj);
+        for (let i = 0; i < objArray.length; i++){
+            let checkBoxIndex='cb'+i;
+            const checkBoxElement=document.getElementById(checkBoxIndex);
+            if (checkBoxElement.checked) {
+                // console.log("Checkbox " +checkBoxIndex+ " is checked.");
+                // console.log(taskObj[objArray[i]]);
+                taskObj[objArray[i]]="Done";
+                }
+            }
+        localStorage.setItem('taskObj', JSON.stringify(taskObj));
+        displayTask();
+        }
+
+    function toDoButtons (event) {
+        const taskObj=JSON.parse(localStorage.getItem('taskObj'));
+        console.log(event.target.id);
+        let btnId=event.target.id;
+        let btnIdArray = btnId.split("-");
+        let btnTask = btnIdArray[0];
+        let toDoId = btnIdArray[1];
+        let toDoArray = taskObj[toDoId];
+        console.log(btnIdArray);
+
+        if (btnTask==="btnDone"){
+            toDoArray[1] = "Done";
+        } else if (btnTask==="btnNotDone"){
+            toDoArray[1] = "Not done";
+        } else if (btnTask==="btnEdit"){
+            console.log('Edit button pressed');
+        } else {
+            console.log('Other button pressed');
+        }
+        localStorage.setItem('taskObj', JSON.stringify(taskObj));
+        displayTask();
+        return console.log('End');
+    }
+
+    function addTask_old(){
         let taskArray = JSON.parse(localStorage.getItem('taskArray'));
         let inputValue=taskInputText.value;
         if (inputValue !== "") {
@@ -127,17 +228,43 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function loadTask(){
+    function addTask(){
+        const taskObj = JSON.parse(localStorage.getItem('taskObj'));
+        let objKeyArray = Object.keys(taskObj);
+        let inputValue=taskInputText.value;
+        if (inputValue !== "") {
+            // taskObj[inputValue]="Not done";
+            let objValueArray=[inputValue,"Not done"];
+            taskObj[objKeyArray.length]=objValueArray;
+            localStorage.setItem('taskObj', JSON.stringify(taskObj));
+            displayTask();
+        } else {
+            alert("Empty task")
+        }
+    }
+
+    function loadTask_old(){
         let taskArray = JSON.parse(localStorage.getItem('taskArray'));
         // taskDecription.innerHTML='Loaded list: '+taskArray;
         displayTask();
     }
 
-    function clearAllTask(){
+    function loadTask(){
+        const taskObj = JSON.parse(localStorage.getItem('taskObj'));
+        displayTask();
+    }
+
+    function clearAllTask_old(){
         let taskArray = [];
         localStorage.setItem('taskArray', JSON.stringify(taskArray));
         // taskDecription.innerHTML='Cleared list: '+taskArray;
 
+        displayTask();
+    }
+
+    function clearAllTask(){
+        const taskObj = {};
+        localStorage.setItem('taskObj', JSON.stringify(taskObj));
         displayTask();
     }
 
@@ -147,9 +274,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    addTaskBtn.addEventListener('click', addTask); 
-    loadTaskBtn.addEventListener('click',loadTask);
-    clearAllBtn.addEventListener('click', clearAllTask);
-    taskInputText.addEventListener('keydown', inputToDo);
+
+
 })
 // end of to-do list
+
+// toastify
+document.addEventListener("DOMContentLoaded", function () {
+    // toastify on add_agreement.html
+    const addAgreementSubmitBtn=document.getElementById("addAgreementSubmitBtn");
+    addAgreementSubmitBtn.addEventListener('click', addToast);
+    
+    function addToast () {
+        Toastify({
+            text: "Ваш договор формируется",
+            duration: 3000
+            }).showToast();
+    }
+})
+// end of toastify
